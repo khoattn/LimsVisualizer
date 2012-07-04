@@ -1,8 +1,7 @@
 LimsVisualizer
 ==============
-'Lims Visualizer v1.1.0.0
-
-Compatible with Davis 5 v 2.10.310 Releases'
+    Lims Visualizer v1.1.0.0
+    Compatible with Davis 5 v 2.10.310 Releases
 
 PREREQUISITES
 -------------
