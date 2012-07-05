@@ -30,10 +30,11 @@ namespace LimsVisualizer
             InitializeComponent();
         }
 
-        public static void ShowErrorMessage(string message)
+        public static void ShowErrorMessage(Exception exception)
         {
+            var errorMessage = new ErrorMessage { Type = Resources.Error };
             _StopHandler();
-            MessageBox.Show(message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            errorMessage.ShowErrorDialog(ActiveForm, exception.Message, exception.Data.ToString());
             sInstance._ChangeStateOfAllControls();
         }
 
@@ -89,7 +90,7 @@ namespace LimsVisualizer
             {
                 LogWriter.WriteFailureMessage("Error in _TimerHandler!");
                 LogWriter.WriteException(exception);
-                ShowErrorMessage(exception.Message);
+                ShowErrorMessage(exception);
             }
         }
 
@@ -220,7 +221,7 @@ namespace LimsVisualizer
             {
                 LogWriter.WriteFailureMessage("Sorting File Array failed!");
                 LogWriter.WriteException(exception);
-                ShowErrorMessage(exception.Message);
+                ShowErrorMessage(exception);
             }
 
             return null;

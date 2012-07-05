@@ -23,7 +23,7 @@ namespace LimsVisualizer
             {
                 MainForm.LogWriter.WriteFailureMessage("Starting Excel failed!");
                 MainForm.LogWriter.WriteException(exception);
-                MainForm.ShowErrorMessage(exception.Message);
+                MainForm.ShowErrorMessage(exception);
             }
         }
 
@@ -68,7 +68,7 @@ namespace LimsVisualizer
             {
                 MainForm.LogWriter.WriteFailureMessage("Adding Header failed!");
                 MainForm.LogWriter.WriteException(exception);
-                MainForm.ShowErrorMessage(exception.Message);
+                MainForm.ShowErrorMessage(exception);
             }
         }
 
@@ -123,7 +123,7 @@ namespace LimsVisualizer
             {
                 MainForm.LogWriter.WriteFailureMessage("Adding Measuring Data failed!");
                 MainForm.LogWriter.WriteException(exception);
-                MainForm.ShowErrorMessage(exception.Message);
+                MainForm.ShowErrorMessage(exception);
             }
         }
 
@@ -155,7 +155,7 @@ namespace LimsVisualizer
             {
                 MainForm.LogWriter.WriteFailureMessage("Disposing failed!");
                 MainForm.LogWriter.WriteException(exception);
-                MainForm.ShowErrorMessage(exception.Message);
+                MainForm.ShowErrorMessage(exception);
             }
         }
 

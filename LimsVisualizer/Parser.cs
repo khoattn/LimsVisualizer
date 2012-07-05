@@ -32,14 +32,14 @@ namespace LimsVisualizer
                 {
                     MainForm.LogWriter.WriteFailureMessage("Parsing file failed!");
                     MainForm.LogWriter.WriteException(exception);
-                    MainForm.ShowErrorMessage(exception.Message);
+                    MainForm.ShowErrorMessage(exception);
                 }
             }
             catch (Exception exception)
             {
                 MainForm.LogWriter.WriteFailureMessage("Parsing file failed!");
                 MainForm.LogWriter.WriteException(exception);
-                MainForm.ShowErrorMessage(exception.Message);
+                MainForm.ShowErrorMessage(exception);
             }
             return null;
         }

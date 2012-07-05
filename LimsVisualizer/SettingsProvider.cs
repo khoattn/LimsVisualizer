@@ -33,7 +33,7 @@ namespace LimsVisualizer
             {
                 MainForm.LogWriter.WriteFailureMessage("Reading settings file failed!");
                 MainForm.LogWriter.WriteException(exception);
-                MainForm.ShowErrorMessage(exception.Message);
+                MainForm.ShowErrorMessage(exception);
             }
         }
 
@@ -54,7 +54,7 @@ namespace LimsVisualizer
             {
                 MainForm.LogWriter.WriteFailureMessage("Writing settings file failed!");
                 MainForm.LogWriter.WriteException(exception);
-                MainForm.ShowErrorMessage(exception.Message);
+                MainForm.ShowErrorMessage(exception);
             }
         }
     }
