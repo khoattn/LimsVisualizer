@@ -134,9 +134,6 @@ namespace LimsVisualizer
             {
                 MainForm.LogWriter.WriteDebugMessage("Disposing Excel.");
 
-                //Give the user control of Microsoft Excel's lifetime.
-                mApplication.UserControl = true;
-
                 if (mRange != null)
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(mRange);
 
@@ -147,7 +144,11 @@ namespace LimsVisualizer
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(mWorkbook);
 
                 if (mApplication != null)
+                {
+                    //Give the user control of Microsoft Excel's lifetime.
+                    mApplication.UserControl = true;
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(mApplication);
+                }
 
                 MainForm.LogWriter.WriteDebugMessage("Disposed Excel successfully.");
             }
