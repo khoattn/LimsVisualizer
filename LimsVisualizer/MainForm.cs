@@ -132,7 +132,7 @@ namespace LimsVisualizer
                     HeadersWritten = true;
                 }
 
-                sExcelHelper.AddMeasuringValues(mDocument);
+                sExcelHelper.AddMeasurementValues(mDocument);
 
                 LogWriter.WriteDebugMessage(string.Format("Deleting file: '{0}'", file));
                 File.Delete(file);

@@ -63,8 +63,8 @@ namespace LimsVisualizer
                     case "Summary":
                         document.Summary = _GetSummary(childNode);
                         break;
-                    case "MeasuringData":
-                        document.MeasuringData = _GetMeasuringData(childNode);
+                    case "MeasurementData":
+                        document.MeasurementData = _GetMeasurementData(childNode);
                         break;
                     case "Comments":
                         document.Comments = _GetCommentList(childNode);
@@ -185,7 +185,7 @@ namespace LimsVisualizer
         {
             var channel = new Channel
                               {
-                                  MeasuringValue = new MeasuringValue(),
+                                  MeasurementValue = new MeasurementValue(),
                                   Id = xmlNode.Attributes["Id"].Value
                               };
 
@@ -206,9 +206,9 @@ namespace LimsVisualizer
                         channel.DataType = childNode.InnerText;
                         break;
 
-                    case "MeasuringValue":
-                        channel.MeasuringValue.Value = _ConvertStringToNullableDouble(childNode.InnerText);                            
-                        channel.MeasuringValue.Status = Convert.ToInt16(childNode.Attributes["Status"].Value);
+                    case "MeasurementValue":
+                        channel.MeasurementValue.Value = _ConvertStringToNullableDouble(childNode.InnerText);                            
+                        channel.MeasurementValue.Status = Convert.ToInt16(childNode.Attributes["Status"].Value);
                         break;
 
                     case "Limits":
@@ -403,49 +403,49 @@ namespace LimsVisualizer
             return line;
         }
 
-        private MeasuringData _GetMeasuringData(XmlNode xmlNode)
+        private MeasurementData _GetMeasurementData(XmlNode xmlNode)
         {
-            var measuringData = new MeasuringData();
+            var MeasurementData = new MeasurementData();
 
             foreach (XmlNode childNode in xmlNode.ChildNodes)
             {
                 switch (childNode.Name)
                 {
                     case "Timestamp":
-                        measuringData.Timestamp = _GetTimeStamp(childNode);
+                        MeasurementData.Timestamp = _GetTimeStamp(childNode);
                         break;
 
                     case "Product":
-                        measuringData.Product = _GetProduct(childNode);
+                        MeasurementData.Product = _GetProduct(childNode);
                         break;
 
                     case "SystemStatus":
-                        measuringData.SystemStatus = Convert.ToInt16(childNode.InnerText);
+                        MeasurementData.SystemStatus = Convert.ToInt16(childNode.InnerText);
                         break;
 
                     case "DeviceStatus":
-                        measuringData.DeviceStatus = Convert.ToInt16(childNode.InnerText);
+                        MeasurementData.DeviceStatus = Convert.ToInt16(childNode.InnerText);
                         break;
 
                     case "LineStatus":
-                        measuringData.LineStatus = Convert.ToInt16(childNode.InnerText);
+                        MeasurementData.LineStatus = Convert.ToInt16(childNode.InnerText);
                         break;
 
                     case "StatusMessages":
                         //TODO Check Messagestyle
-                        measuringData.StatusMessages = new List<StatusMessage>();
+                        MeasurementData.StatusMessages = new List<StatusMessage>();
                         break;
 
                     case "IsFlowStopActive":
-                        measuringData.IsFlowStopActive = Convert.ToBoolean(childNode.InnerText);
+                        MeasurementData.IsFlowStopActive = Convert.ToBoolean(childNode.InnerText);
                         break;
 
                     case "IsHoldActive":
-                        measuringData.IsHoldActive = Convert.ToBoolean(childNode.InnerText);
+                        MeasurementData.IsHoldActive = Convert.ToBoolean(childNode.InnerText);
                         break;
 
                     case "Channels":
-                        measuringData.Channels = _GetChannelList(childNode);
+                        MeasurementData.Channels = _GetChannelList(childNode);
                         break;
 
                     default:
@@ -454,7 +454,7 @@ namespace LimsVisualizer
                 }
             }
 
-            return measuringData;
+            return MeasurementData;
         }
 
         private Product _GetProduct(XmlNode xmlNode)

@@ -37,12 +37,12 @@ namespace LimsVisualizer
                                                                         document.Summary.Line.Name,
                                                                         document.Summary.ActiveProduct.Product.Name));
 
-                var channelNames = new string[document.MeasuringData.Channels.Count + 1];
+                var channelNames = new string[document.MeasurementData.Channels.Count + 1];
                 channelNames[0] = "Timestamp";
 
                 for (int i = 1; i < channelNames.Length; i++)
                 {
-                    channelNames[i] = document.MeasuringData.Channels[i - 1].Name + " [" + document.MeasuringData.Channels[i - 1].Unit.Name + "]";
+                    channelNames[i] = document.MeasurementData.Channels[i - 1].Name + " [" + document.MeasurementData.Channels[i - 1].Unit.Name + "]";
                 }
 
                 mWorksheet.Cells[1, 1] = "Device Name:";
@@ -73,7 +73,7 @@ namespace LimsVisualizer
             }
         }
 
-        public void AddMeasuringValues(Document document)
+        public void AddMeasurementValues(Document document)
         {
             try
             {
@@ -83,13 +83,13 @@ namespace LimsVisualizer
                                                                         document.Summary.ActiveProduct.Product.Name));
 
                 mApplication.ScreenUpdating = false;
-                var measuringValues = new double[document.MeasuringData.Channels.Count];
+                var MeasurementValues = new double[document.MeasurementData.Channels.Count];
 
-                for (var i = 0; i < measuringValues.Length; i++)
+                for (var i = 0; i < MeasurementValues.Length; i++)
                 {
-                    if (document.MeasuringData.Channels[i].MeasuringValue.Value != null)
+                    if (document.MeasurementData.Channels[i].MeasurementValue.Value != null)
                     {
-                        measuringValues[i] = Convert.ToDouble(document.MeasuringData.Channels[i].MeasuringValue.Value);
+                        MeasurementValues[i] = Convert.ToDouble(document.MeasurementData.Channels[i].MeasurementValue.Value);
                     }
                 }
 
@@ -98,17 +98,17 @@ namespace LimsVisualizer
                 mWorkbook.Activate();
                 mWorksheet.Activate();
                 mRange = mWorksheet.Range[cell];
-                mRange.Value2 = document.MeasuringData.Timestamp.Local.ToShortDateString() + " " +
-                                document.MeasuringData.Timestamp.Local.ToLongTimeString() + "." + document.MeasuringData.Timestamp.Local.Millisecond;
+                mRange.Value2 = document.MeasurementData.Timestamp.Local.ToShortDateString() + " " +
+                                document.MeasurementData.Timestamp.Local.ToLongTimeString() + "." + document.MeasurementData.Timestamp.Local.Millisecond;
 
                 //Add measuring values
                 cell = "B" + (mWorksheet.UsedRange.Rows.Count);
-                mRange = mWorksheet.Range[cell, cell].Resize[Missing.Value, measuringValues.Length];
-                mRange.Value2 = measuringValues;
+                mRange = mWorksheet.Range[cell, cell].Resize[Missing.Value, MeasurementValues.Length];
+                mRange.Value2 = MeasurementValues;
 
                 //Format row
                 cell = "A" + (mWorksheet.UsedRange.Rows.Count);
-                mRange = mWorksheet.Range[cell, cell].Resize[Missing.Value, measuringValues.Length + 1];
+                mRange = mWorksheet.Range[cell, cell].Resize[Missing.Value, MeasurementValues.Length + 1];
                 mRange.EntireColumn.AutoFit();
                 mRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
 

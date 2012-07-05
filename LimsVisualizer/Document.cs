@@ -32,8 +32,8 @@ namespace LimsVisualizer
         public string Name { get; set; }
         public Unit Unit;
         public string DataType { get; set; }
-        // For Measuringdata Channels
-        public MeasuringValue MeasuringValue;
+        // For MeasurementData Channels
+        public MeasurementValue MeasurementValue;
         public Limit Limits;
         // For Calibration Channels
         public double? SavedValue { get; set; }
@@ -66,7 +66,7 @@ namespace LimsVisualizer
         public string File { get; set; }
         public Timestamp Timestamp;
         public Summary Summary;
-        public MeasuringData MeasuringData;
+        public MeasurementData MeasurementData;
         public List<Comment> Comments;
         public List<Calibration> Calibrations;
         public List<Adjustment> Adjustments;
@@ -88,7 +88,7 @@ namespace LimsVisualizer
         public string Name { get; set; }
     }
 
-    public class MeasuringData
+    public class MeasurementData
     {
         public Timestamp Timestamp;
         public Product Product;
@@ -101,7 +101,7 @@ namespace LimsVisualizer
         public List<Channel> Channels;
     }
 
-    public class MeasuringValue
+    public class MeasurementValue
     {
         public double? Value { get; set; }
         public int Status { get; set; }
