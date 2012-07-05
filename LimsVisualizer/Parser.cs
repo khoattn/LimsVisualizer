@@ -469,7 +469,7 @@ namespace LimsVisualizer
                         break;
 
                     case "Number":
-                        product.Number = Convert.ToInt16(childNode.InnerText);
+                        product.Number = Convert.ToUInt16(childNode.InnerText);
                         break;
 
                     case "ProductType":
