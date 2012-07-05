@@ -70,11 +70,31 @@ namespace LimsVisualizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap error_128x128 {
+            get {
+                object obj = ResourceManager.GetObject("error_128x128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INFO.
         /// </summary>
         internal static string Info {
             get {
                 return ResourceManager.GetString("Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap information_128x128 {
+            get {
+                object obj = ResourceManager.GetObject("information_128x128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
