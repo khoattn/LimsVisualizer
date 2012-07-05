@@ -18,20 +18,26 @@ namespace LimsVisualizer
         {
             InitializeComponent();
         }
-        
-        public void ShowDialog(Form owner, string message, string details)
+
+        public void ShowErrorDialog(Form owner, string message, string details)
         {
             mMessage = message;
             mDetails = details;
+            icon.Image = Properties.Resources.error_128x128;
+            labelTitle.Text = Type.ToUpper();
+            labelMessage.Text = mMessage;
+            textBoxDetails.Text = mDetails;
 
-            if (Type == "error")
-            {
-                icon.Image = Properties.Resources.error_128x128;
-            }
-            else
-            {
-                icon.Image = Properties.Resources.information_128x128;
-            }
+            ShowDialog(owner);
+        }
+
+        public void ShowInformationDialog(Form owner, string message)
+        {
+            mMessage = message;
+            icon.Image = Properties.Resources.information_128x128;
+            labelTitle.Text = Type.ToUpper();
+            labelMessage.Text = mMessage;
+            buttonDetails.Visible = false;
 
             ShowDialog(owner);
         }
@@ -45,7 +51,7 @@ namespace LimsVisualizer
                 var tempSize = splitContainer1.Panel1.Size;
                 Size = new Size(679, 163);
                 splitContainer1.Panel2Collapsed = true;
-                button2.Text = "Show Details";
+                buttonDetails.Text = "Show Details";
                 splitContainer1.SplitterDistance = tempSize.Height;
             }
             else
@@ -53,7 +59,7 @@ namespace LimsVisualizer
                 var tempSize = splitContainer1.Panel1.Size;
                 Size = new Size(679, 474);
                 splitContainer1.Panel2Collapsed = false;
-                button2.Text = "Hide Details";
+                buttonDetails.Text = "Hide Details";
                 splitContainer1.SplitterDistance = tempSize.Height;
             }
         }

@@ -31,9 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ErrorMessage));
             this.icon = new System.Windows.Forms.PictureBox();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonDetails = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelMessage = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.textBoxDetails = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.icon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -61,16 +63,16 @@
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonDetails
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(500, 100);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(80, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Show Details";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this._ButtonDetailsClick);
+            this.buttonDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDetails.Location = new System.Drawing.Point(500, 100);
+            this.buttonDetails.Name = "buttonDetails";
+            this.buttonDetails.Size = new System.Drawing.Size(80, 23);
+            this.buttonDetails.TabIndex = 2;
+            this.buttonDetails.Text = "Show Details";
+            this.buttonDetails.UseVisualStyleBackColor = true;
+            this.buttonDetails.Click += new System.EventHandler(this._ButtonDetailsClick);
             // 
             // splitContainer1
             // 
@@ -85,27 +87,48 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.labelMessage);
+            this.splitContainer1.Panel1.Controls.Add(this.labelTitle);
             this.splitContainer1.Panel1.Controls.Add(this.buttonClose);
             this.splitContainer1.Panel1.Controls.Add(this.icon);
-            this.splitContainer1.Panel1.Controls.Add(this.button2);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonDetails);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.textBoxDetails);
             this.splitContainer1.Panel2Collapsed = true;
             this.splitContainer1.Size = new System.Drawing.Size(673, 135);
             this.splitContainer1.SplitterDistance = 100;
             this.splitContainer1.TabIndex = 3;
             // 
-            // textBox1
+            // labelMessage
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(150, 46);
-            this.textBox1.TabIndex = 4;
+            this.labelMessage.AutoSize = true;
+            this.labelMessage.Location = new System.Drawing.Point(130, 58);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(50, 13);
+            this.labelMessage.TabIndex = 4;
+            this.labelMessage.Text = "Message";
+            // 
+            // labelTitle
+            // 
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Location = new System.Drawing.Point(129, 25);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(45, 24);
+            this.labelTitle.TabIndex = 3;
+            this.labelTitle.Text = "Title";
+            // 
+            // textBoxDetails
+            // 
+            this.textBoxDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxDetails.Location = new System.Drawing.Point(0, 0);
+            this.textBoxDetails.Multiline = true;
+            this.textBoxDetails.Name = "textBoxDetails";
+            this.textBoxDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxDetails.Size = new System.Drawing.Size(150, 46);
+            this.textBoxDetails.TabIndex = 4;
             // 
             // ErrorMessage
             // 
@@ -125,6 +148,7 @@
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.icon)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -137,8 +161,10 @@
 
         private System.Windows.Forms.PictureBox icon;
         private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonDetails;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxDetails;
+        private System.Windows.Forms.Label labelMessage;
+        private System.Windows.Forms.Label labelTitle;
     }
 }
