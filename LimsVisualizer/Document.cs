@@ -110,7 +110,7 @@ namespace LimsVisualizer
     public class Product
     {
         public Guid Id { get; set; }
-        public int Number { get; set; }
+        public UInt16 Number { get; set; }
         public string Name { get; set; }
         public ProductType ProductType;
     }
