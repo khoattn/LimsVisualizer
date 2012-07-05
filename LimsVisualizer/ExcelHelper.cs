@@ -16,8 +16,7 @@ namespace LimsVisualizer
             try
             {
                 MainForm.LogWriter.WriteDebugMessage("Starting Excel.");
-                mApplication = new Excel.Application {Visible = true};
-                mApplication.UserControl = false;
+                mApplication = new Excel.Application { Visible = true, UserControl = false };
                 MainForm.LogWriter.WriteDebugMessage("Started Excel.");
             }
             catch (Exception exception)
@@ -83,13 +82,13 @@ namespace LimsVisualizer
                                                                         document.Summary.ActiveProduct.Product.Name));
 
                 mApplication.ScreenUpdating = false;
-                var MeasurementValues = new double[document.MeasurementData.Channels.Count];
+                var measurementValues = new double[document.MeasurementData.Channels.Count];
 
-                for (var i = 0; i < MeasurementValues.Length; i++)
+                for (var i = 0; i < measurementValues.Length; i++)
                 {
                     if (document.MeasurementData.Channels[i].MeasurementValue.Value != null)
                     {
-                        MeasurementValues[i] = Convert.ToDouble(document.MeasurementData.Channels[i].MeasurementValue.Value);
+                        measurementValues[i] = Convert.ToDouble(document.MeasurementData.Channels[i].MeasurementValue.Value);
                     }
                 }
 
@@ -103,12 +102,12 @@ namespace LimsVisualizer
 
                 //Add measuring values
                 cell = "B" + (mWorksheet.UsedRange.Rows.Count);
-                mRange = mWorksheet.Range[cell, cell].Resize[Missing.Value, MeasurementValues.Length];
-                mRange.Value2 = MeasurementValues;
+                mRange = mWorksheet.Range[cell, cell].Resize[Missing.Value, measurementValues.Length];
+                mRange.Value2 = measurementValues;
 
                 //Format row
                 cell = "A" + (mWorksheet.UsedRange.Rows.Count);
-                mRange = mWorksheet.Range[cell, cell].Resize[Missing.Value, MeasurementValues.Length + 1];
+                mRange = mWorksheet.Range[cell, cell].Resize[Missing.Value, measurementValues.Length + 1];
                 mRange.EntireColumn.AutoFit();
                 mRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
 

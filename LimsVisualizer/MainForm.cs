@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using LimsVisualizer.Properties;
 using Threading = System.Threading;
 
 namespace LimsVisualizer
@@ -32,7 +33,7 @@ namespace LimsVisualizer
         public static void ShowErrorMessage(string message)
         {
             _StopHandler();
-            MessageBox.Show(message,"ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            MessageBox.Show(message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             sInstance._ChangeStateOfAllControls();
         }
 
@@ -52,7 +53,7 @@ namespace LimsVisualizer
 
             if (!Directory.Exists(Path))
             {
-                MessageBox.Show(string.Format("The provided path '{0}' does not exist!", Path), "INFO",
+                MessageBox.Show(string.Format("The provided path '{0}' does not exist!", Path), Resources.Info,
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _ChangeStateOfAllControls();
                 return;
@@ -192,11 +193,18 @@ namespace LimsVisualizer
                 if (files.Length > 1)
                 {
                     var extensionArray = new long[files.Length];
+// ReSharper disable AssignNullToNotNullAttribute
                     var filePathAndNameWithoutExtension = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(files[0]), System.IO.Path.GetFileNameWithoutExtension(files[0]) + ".");
+// ReSharper restore AssignNullToNotNullAttribute
 
                     for (var i = 0; i < extensionArray.Length; i++)
                     {
-                        extensionArray[i] = Convert.ToInt64(System.IO.Path.GetExtension(files[i]).Replace(".", ""));
+                        var extension = System.IO.Path.GetExtension(files[i]);
+
+                        if (extension != null)
+                        {
+                            extensionArray[i] = Convert.ToInt64(extension.Replace(".", ""));
+                        }
                     }
 
                     Array.Sort(extensionArray);

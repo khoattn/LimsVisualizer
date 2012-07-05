@@ -107,35 +107,40 @@ namespace LimsVisualizer
 
         private Adjustment _GetAdjustment(XmlNode xmlNode)
         {
-            var adjustment = new Adjustment { Id = new Guid(xmlNode.Attributes["Id"].Value) };
-
-            foreach (XmlNode childNode in xmlNode.ChildNodes)
+            if (xmlNode.Attributes != null)
             {
-                switch (childNode.Name)
+                var adjustment = new Adjustment { Id = new Guid(xmlNode.Attributes["Id"].Value) };
+
+                foreach (XmlNode childNode in xmlNode.ChildNodes)
                 {
-                    case "Timestamp":
-                        adjustment.Timestamp = _GetTimeStamp(childNode);
-                        break;
+                    switch (childNode.Name)
+                    {
+                        case "Timestamp":
+                            adjustment.Timestamp = _GetTimeStamp(childNode);
+                            break;
 
-                    case "Product":
-                        adjustment.Product = _GetProduct(childNode);
-                        break;
+                        case "Product":
+                            adjustment.Product = _GetProduct(childNode);
+                            break;
 
-                    case "UserName":
-                        adjustment.Username = childNode.InnerText;
-                        break;
+                        case "UserName":
+                            adjustment.Username = childNode.InnerText;
+                            break;
 
-                    case "Channels":
-                        adjustment.Channels = _GetChannelList(childNode);
-                        break;
+                        case "Channels":
+                            adjustment.Channels = _GetChannelList(childNode);
+                            break;
 
-                    default:
-                        MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
-                        break;
+                        default:
+                            MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
+                            break;
+                    }
                 }
+
+                return adjustment;
             }
 
-            return adjustment;
+            return null;
         }
 
         private List<Adjustment> _GetAdjustmentList(XmlNode xmlNode)
@@ -145,35 +150,40 @@ namespace LimsVisualizer
 
         private Calibration _GetCalibration(XmlNode xmlNode)
         {
-            var calibration = new Calibration {Id = new Guid(xmlNode.Attributes["Id"].Value)};
-            
-            foreach (XmlNode childNode in xmlNode.ChildNodes)
+            if (xmlNode.Attributes != null)
             {
-                switch (childNode.Name)
+                var calibration = new Calibration {Id = new Guid(xmlNode.Attributes["Id"].Value)};
+            
+                foreach (XmlNode childNode in xmlNode.ChildNodes)
                 {
-                    case "Timestamp":
-                        calibration.Timestamp = _GetTimeStamp(childNode);
-                        break;
+                    switch (childNode.Name)
+                    {
+                        case "Timestamp":
+                            calibration.Timestamp = _GetTimeStamp(childNode);
+                            break;
 
-                    case "Product":
-                        calibration.Product = _GetProduct(childNode);
-                        break;
+                        case "Product":
+                            calibration.Product = _GetProduct(childNode);
+                            break;
 
-                    case "UserName":
-                        calibration.Username = childNode.InnerText;
-                        break;
+                        case "UserName":
+                            calibration.Username = childNode.InnerText;
+                            break;
 
-                    case "Channels":
-                        calibration.Channels = _GetChannelList(childNode);
-                        break;
+                        case "Channels":
+                            calibration.Channels = _GetChannelList(childNode);
+                            break;
 
-                    default:
-                        MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
-                        break;
+                        default:
+                            MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
+                            break;
+                    }
                 }
+
+                return calibration;
             }
 
-            return calibration;
+            return null;
         }
 
         private List<Calibration> _GetCalibrationList(XmlNode xmlNode)
@@ -183,69 +193,79 @@ namespace LimsVisualizer
 
         private Channel _GetChannel(XmlNode xmlNode)
         {
-            var channel = new Channel
-                              {
-                                  MeasurementValue = new MeasurementValue(),
-                                  Id = xmlNode.Attributes["Id"].Value
-                              };
-
-
-            foreach (XmlNode childNode in xmlNode.ChildNodes)
+            if (xmlNode.Attributes != null)
             {
-                switch (childNode.Name)
+                var channel = new Channel
                 {
-                    case "Name":
-                        channel.Name = childNode.InnerText;
-                        break;
+                    MeasurementValue = new MeasurementValue(),
+                    Id = xmlNode.Attributes["Id"].Value
+                };
 
-                    case "Unit":
-                        channel.Unit = _GetUnit(childNode);
-                        break;
 
-                    case "DataType":
-                        channel.DataType = childNode.InnerText;
-                        break;
+                foreach (XmlNode childNode in xmlNode.ChildNodes)
+                {
+                    switch (childNode.Name)
+                    {
+                        case "Name":
+                            channel.Name = childNode.InnerText;
+                            break;
 
-                    case "MeasurementValue":
-                        channel.MeasurementValue.Value = _ConvertStringToNullableDouble(childNode.InnerText);                            
-                        channel.MeasurementValue.Status = Convert.ToInt16(childNode.Attributes["Status"].Value);
-                        break;
+                        case "Unit":
+                            channel.Unit = _GetUnit(childNode);
+                            break;
 
-                    case "Limits":
-                        channel.Limits = _GetLimits(childNode);
-                        break;
+                        case "DataType":
+                            channel.DataType = childNode.InnerText;
+                            break;
 
-                    case "SavedValue":
-                        channel.SavedValue = _ConvertStringToNullableDouble(childNode.InnerText);
-                        break;
+                        case "MeasurementValue":
+                            channel.MeasurementValue.Value = _ConvertStringToNullableDouble(childNode.InnerText);
+                            
+                            if (childNode.Attributes != null)
+                            {
+                                channel.MeasurementValue.Status = Convert.ToInt16(childNode.Attributes["Status"].Value);
+                            }
 
-                    case "Reference":
-                        channel.Reference = _ConvertStringToNullableDouble(childNode.InnerText);
-                        break;
+                            break;
 
-                    case "Deviation":
-                        channel.Deviation = _ConvertStringToNullableDouble(childNode.InnerText);
-                        break;
+                        case "Limits":
+                            channel.Limits = _GetLimits(childNode);
+                            break;
 
-                    case "AverageDeviation":
-                        channel.AverageDeviation = _ConvertStringToNullableDouble(childNode.InnerText);
-                        break;
+                        case "SavedValue":
+                            channel.SavedValue = _ConvertStringToNullableDouble(childNode.InnerText);
+                            break;
 
-                    case "OriginalGain":
-                        channel.OriginalGain = _ConvertStringToNullableDouble(childNode.InnerText);
-                        break;
+                        case "Reference":
+                            channel.Reference = _ConvertStringToNullableDouble(childNode.InnerText);
+                            break;
 
-                    case "AdjustedGain":
-                        channel.AdjustedGain = _ConvertStringToNullableDouble(childNode.InnerText);
-                        break;
+                        case "Deviation":
+                            channel.Deviation = _ConvertStringToNullableDouble(childNode.InnerText);
+                            break;
 
-                    default:
-                        MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
-                        break;
+                        case "AverageDeviation":
+                            channel.AverageDeviation = _ConvertStringToNullableDouble(childNode.InnerText);
+                            break;
+
+                        case "OriginalGain":
+                            channel.OriginalGain = _ConvertStringToNullableDouble(childNode.InnerText);
+                            break;
+
+                        case "AdjustedGain":
+                            channel.AdjustedGain = _ConvertStringToNullableDouble(childNode.InnerText);
+                            break;
+
+                        default:
+                            MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
+                            break;
+                    }
                 }
+
+                return channel;
             }
 
-            return channel;
+            return null;
         }
 
         private List<Channel> _GetChannelList(XmlNode xmlNode)
@@ -314,40 +334,45 @@ namespace LimsVisualizer
 
         private Device _GetDevice(XmlNode xmlNode)
         {
-            var device = new Device {Id = xmlNode.Attributes["Id"].Value};
-
-            foreach (XmlNode childNode in xmlNode.ChildNodes)
+            if (xmlNode.Attributes != null)
             {
-                switch (childNode.Name)
+                var device = new Device {Id = xmlNode.Attributes["Id"].Value};
+
+                foreach (XmlNode childNode in xmlNode.ChildNodes)
                 {
-                    case "Name":
-                        device.Name = childNode.InnerText;
-                        break;
+                    switch (childNode.Name)
+                    {
+                        case "Name":
+                            device.Name = childNode.InnerText;
+                            break;
 
-                    case "Location":
-                        device.Location = childNode.InnerText;
-                        break;
+                        case "Location":
+                            device.Location = childNode.InnerText;
+                            break;
 
-                    case "SerialNumber":
-                        device.SerialNumber = Convert.ToInt32(childNode.InnerText);
-                        break;
+                        case "SerialNumber":
+                            device.SerialNumber = Convert.ToInt32(childNode.InnerText);
+                            break;
 
-                    case "FirmwareVersion":
-                        device.FirmwareVersion = childNode.InnerText;
-                        break;
+                        case "FirmwareVersion":
+                            device.FirmwareVersion = childNode.InnerText;
+                            break;
 
-                    default:
-                        MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
-                        break;
+                        default:
+                            MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
+                            break;
+                    }
                 }
+
+                return device;
             }
 
-            return device;
+            return null;
         }
 
         private Limit _GetLimits(XmlNode xmlNode)
         {
-            var limit = new Limit {Active = Convert.ToBoolean(xmlNode.Attributes["Active"].Value)};
+            var limit = new Limit {Active = xmlNode.Attributes != null && Convert.ToBoolean(xmlNode.Attributes["Active"].Value)};
             
             foreach (XmlNode childNode in xmlNode.ChildNodes)
             {
@@ -384,68 +409,73 @@ namespace LimsVisualizer
 
         private Line _GetLine(XmlNode xmlNode)
         {
-            var line = new Line { Id = new Guid(xmlNode.Attributes["Id"].Value) };
-
-            foreach (XmlNode childNode in xmlNode.ChildNodes)
+            if (xmlNode.Attributes != null)
             {
-                switch (childNode.Name)
-                {
-                    case "Name":
-                        line.Name = childNode.InnerText;
-                        break;
+                var line = new Line { Id = new Guid(xmlNode.Attributes["Id"].Value) };
 
-                    default:
-                        MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
-                        break;
+                foreach (XmlNode childNode in xmlNode.ChildNodes)
+                {
+                    switch (childNode.Name)
+                    {
+                        case "Name":
+                            line.Name = childNode.InnerText;
+                            break;
+
+                        default:
+                            MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
+                            break;
+                    }
                 }
+
+                return line;
             }
 
-            return line;
+            return null;
         }
 
         private MeasurementData _GetMeasurementData(XmlNode xmlNode)
         {
-            var MeasurementData = new MeasurementData();
+            var measurementData = new MeasurementData();
 
             foreach (XmlNode childNode in xmlNode.ChildNodes)
             {
                 switch (childNode.Name)
                 {
                     case "Timestamp":
-                        MeasurementData.Timestamp = _GetTimeStamp(childNode);
+                        measurementData.Timestamp = _GetTimeStamp(childNode);
                         break;
 
                     case "Product":
-                        MeasurementData.Product = _GetProduct(childNode);
+                        measurementData.Product = _GetProduct(childNode);
                         break;
 
                     case "SystemStatus":
-                        MeasurementData.SystemStatus = Convert.ToInt16(childNode.InnerText);
+                        measurementData.SystemStatus = Convert.ToInt16(childNode.InnerText);
                         break;
 
                     case "DeviceStatus":
-                        MeasurementData.DeviceStatus = Convert.ToInt16(childNode.InnerText);
+                        measurementData.DeviceStatus = Convert.ToInt16(childNode.InnerText);
                         break;
 
                     case "LineStatus":
-                        MeasurementData.LineStatus = Convert.ToInt16(childNode.InnerText);
+                        measurementData.LineStatus = Convert.ToInt16(childNode.InnerText);
                         break;
 
                     case "StatusMessages":
                         //TODO Check Messagestyle
-                        MeasurementData.StatusMessages = new List<StatusMessage>();
+                        measurementData.StatusMessages = new List<StatusMessage>();
                         break;
 
                     case "IsFlowStopActive":
-                        MeasurementData.IsFlowStopActive = Convert.ToBoolean(childNode.InnerText);
+                        measurementData.IsFlowStopActive = Convert.ToBoolean(childNode.InnerText);
                         break;
 
                     case "IsHoldActive":
-                        MeasurementData.IsHoldActive = Convert.ToBoolean(childNode.InnerText);
+                        measurementData.IsHoldActive = Convert.ToBoolean(childNode.InnerText);
                         break;
 
                     case "Channels":
-                        MeasurementData.Channels = _GetChannelList(childNode);
+                        measurementData.Channels = _GetChannelList(childNode);
                         break;
 
                     default:
@@ -454,56 +484,66 @@ namespace LimsVisualizer
                 }
             }
 
-            return MeasurementData;
+            return measurementData;
         }
 
         private Product _GetProduct(XmlNode xmlNode)
         {
-            var product = new Product { Id = new Guid(xmlNode.Attributes["Id"].Value) };
-            foreach (XmlNode childNode in xmlNode.ChildNodes)
+            if (xmlNode.Attributes != null)
             {
-                switch (childNode.Name)
+                var product = new Product { Id = new Guid(xmlNode.Attributes["Id"].Value) };
+                foreach (XmlNode childNode in xmlNode.ChildNodes)
                 {
-                    case "Name":
-                        product.Name = childNode.InnerText;
-                        break;
+                    switch (childNode.Name)
+                    {
+                        case "Name":
+                            product.Name = childNode.InnerText;
+                            break;
 
-                    case "Number":
-                        product.Number = Convert.ToUInt16(childNode.InnerText);
-                        break;
+                        case "Number":
+                            product.Number = Convert.ToUInt16(childNode.InnerText);
+                            break;
 
-                    case "ProductType":
-                        product.ProductType = _GetProductType(childNode);
-                        break;
+                        case "ProductType":
+                            product.ProductType = _GetProductType(childNode);
+                            break;
 
-                    default:
-                        MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
-                        break;
+                        default:
+                            MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
+                            break;
+                    }
                 }
+
+                return product;
             }
 
-            return product;
+            return null;
         }
 
         private ProductType _GetProductType(XmlNode xmlNode)
         {
-            var productType = new ProductType { Id = xmlNode.Attributes["Id"].Value };
-
-            foreach (XmlNode childNode in xmlNode.ChildNodes)
+            if (xmlNode.Attributes != null)
             {
-                switch (childNode.Name)
-                {
-                    case "Name":
-                        productType.Name = childNode.InnerText;
-                        break;
+                var productType = new ProductType { Id = xmlNode.Attributes["Id"].Value };
 
-                    default:
-                        MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
-                        break;
+                foreach (XmlNode childNode in xmlNode.ChildNodes)
+                {
+                    switch (childNode.Name)
+                    {
+                        case "Name":
+                            productType.Name = childNode.InnerText;
+                            break;
+
+                        default:
+                            MainForm.LogWriter.WriteDebugMessage(string.Format("Unknown XML Node found! Node Name: '{0}'", childNode.Name));
+                            break;
+                    }
                 }
+
+                return productType;
             }
 
-            return productType;
+            return null;
         }
 
         private Summary _GetSummary(XmlNode xmlNode)
@@ -537,19 +577,24 @@ namespace LimsVisualizer
 
         private Unit _GetUnit(XmlNode xmlNode)
         {
-            var unit = new Unit {Id = xmlNode.Attributes["Id"].Value};
-            
-            foreach (XmlNode childNode in xmlNode.ChildNodes)
+            if (xmlNode.Attributes != null)
             {
-                switch (childNode.Name)
+                var unit = new Unit {Id = xmlNode.Attributes["Id"].Value};
+            
+                foreach (XmlNode childNode in xmlNode.ChildNodes)
                 {
-                    case "Name":
-                        unit.Name = childNode.InnerText;
-                        break;
+                    switch (childNode.Name)
+                    {
+                        case "Name":
+                            unit.Name = childNode.InnerText;
+                            break;
+                    }
                 }
+
+                return unit;
             }
 
-            return unit;
+            return null;
         }
         
         private double? _ConvertStringToNullableDouble(string value)

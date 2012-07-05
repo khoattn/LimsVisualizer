@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace LimsVisualizer
@@ -11,7 +9,9 @@ namespace LimsVisualizer
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
+// ReSharper disable InconsistentNaming
         static void Main()
+// ReSharper restore InconsistentNaming
         {
             try
             {
