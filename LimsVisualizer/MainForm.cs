@@ -18,7 +18,7 @@ namespace LimsVisualizer
         private static ExcelHelper sExcelHelper;
         private static MainForm sInstance;
         private static Threading.Timer sTimer;
-        private static ActiveProduct sActiveProduct = new ActiveProduct();
+        private static ActiveProduct sActiveProduct = new ActiveProduct { Product = new Product { Id = Guid.NewGuid() } };
 
         public static string Path { get; set; }
         public static int DueTime { get; set; }
@@ -48,7 +48,6 @@ namespace LimsVisualizer
 
         private void _ButtonStartClick(object sender, EventArgs e)
         {
-
             _ChangeStateOfAllControls();
 
             if (!Directory.Exists(Path))
