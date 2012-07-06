@@ -34,8 +34,8 @@ namespace LimsVisualizer
         {
             var errorMessage = new ErrorMessage { Type = Resources.Error };
             _StopHandler();
-            errorMessage.ShowErrorDialog(ActiveForm, exception.Message, exception.Data.ToString());
             sInstance._ChangeStateOfAllControls();
+            errorMessage.ShowErrorDialog(ActiveForm, exception.Message, exception.StackTrace);
         }
 
         private void _ButtonBrowseClick(object sender, EventArgs e)
