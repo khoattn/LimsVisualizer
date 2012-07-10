@@ -202,7 +202,7 @@ namespace LimsVisualizer
                     {
                         var extension = System.IO.Path.GetExtension(files[i]);
 
-                        if (extension != null)
+                        if (extension != null && extension != string.Empty)
                         {
                             extensionArray[i] = Convert.ToInt64(extension.Replace(".", ""));
                         }
