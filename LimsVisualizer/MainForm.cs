@@ -202,9 +202,17 @@ namespace LimsVisualizer
                     {
                         var extension = System.IO.Path.GetExtension(files[i]);
 
-                        if (extension != null && extension != string.Empty)
+                        try
                         {
-                            extensionArray[i] = Convert.ToInt64(extension.Replace(".", ""));
+                            if (!string.IsNullOrEmpty(extension))
+                            {
+                                extensionArray[i] = Convert.ToInt64(extension.Replace(".", ""));
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            LogWriter.WriteDebugMessage(string.Format("Format Exception occured while sorting the file array. Caused by File: {0}", files[i]));
+                            return files;
                         }
                     }
 
