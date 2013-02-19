@@ -22,14 +22,14 @@ namespace LimsVisualizer
         private static Threading.Timer sTimer;
         private static ActiveProduct sActiveProduct = new ActiveProduct { Product = new Product { Id = Guid.NewGuid() } };
 
-        public static string Path { get; set; }
+        public static string FilePath { get; set; }
         public static int DueTime { get; set; }
 
         public MainForm()
         {
             sInstance = this;
             LogWriter.ApplicationName = "LimsVsiulizer";
-            LogWriter.LogFilePath = System.IO.Path.Combine(Environment.GetEnvironmentVariable("TEMP"), "LimsVisualizer");
+            LogWriter.LogFilePath = Path.Combine(Environment.GetEnvironmentVariable("TEMP"), "LimsVisualizer");
             mParser.Logger = LogWriter;
             InitializeComponent();
         }
@@ -44,11 +44,11 @@ namespace LimsVisualizer
 
         private void _ButtonBrowseClick(object sender, EventArgs e)
         {
-            folderBrowserDialog.SelectedPath = Path;
+            folderBrowserDialog.SelectedPath = FilePath;
 
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                Path = textBoxPath.Text = folderBrowserDialog.SelectedPath;
+                FilePath = textBoxPath.Text = folderBrowserDialog.SelectedPath;
             }
         }
 
@@ -56,9 +56,9 @@ namespace LimsVisualizer
         {
             _ChangeStateOfAllControls();
 
-            if (!Directory.Exists(Path))
+            if (!Directory.Exists(FilePath))
             {
-                MessageBox.Show(string.Format("The provided path '{0}' does not exist!", Path), Resources.Info,
+                MessageBox.Show(string.Format("The provided path '{0}' does not exist!", FilePath), Resources.Info,
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _ChangeStateOfAllControls();
                 return;
@@ -67,7 +67,7 @@ namespace LimsVisualizer
             sExcelHelper = new ExcelHelper();
             sTimer = new Threading.Timer(_TimerHandler);
 
-            LogWriter.WriteDebugMessage(string.Format("Starting Timer. Path: '{0}' Interval: '{1}'",Path,DueTime));
+            LogWriter.WriteDebugMessage(string.Format("Starting Timer. FilePath: '{0}' Interval: '{1}'",FilePath,DueTime));
             _StartHandler();
             LogWriter.WriteDebugMessage(string.Format("Started Timer successfully."));
         }
@@ -115,14 +115,22 @@ namespace LimsVisualizer
 
         private void _CheckForFile()
         {
-            var files = _SortFileListByExtension(Directory.GetFiles(Path));
+            var files = _SortFileListByExtension(Directory.GetFiles(FilePath));
 
             foreach (var file in files)
             {
                 if (sIsHandlerDisposed)
                     return;
 
-                mDocument = mParser.ParseFile(file);
+
+                try
+                {
+                    mDocument = mParser.ParseFile(file);
+                }
+                catch (Exception exception)
+                {
+                    ShowErrorMessage(exception);
+                }
 
                 if ((sActiveProduct == null) || (sActiveProduct.Product.Id != mDocument.Summary.ActiveProduct.Product.Id))
                 {
@@ -178,11 +186,11 @@ namespace LimsVisualizer
         {
             LogWriter.Initialize();
             mSettingsProvider.GetSettings();
-            textBoxPath.Text = folderBrowserDialog.SelectedPath = Path;
+            textBoxPath.Text = folderBrowserDialog.SelectedPath = FilePath;
             trackBarCheckFrequency.Value = DueTime;
             numericUpDownCheckFrequency.Value = DueTime;
             buttonStop.Enabled = false;
-            textBoxPath.Text = Path;
+            textBoxPath.Text = FilePath;
         }
 
         private void _FormMainFormClosing(object sender, FormClosingEventArgs e)
@@ -198,13 +206,11 @@ namespace LimsVisualizer
                 if (files.Length > 1)
                 {
                     var extensionArray = new long[files.Length];
-// ReSharper disable AssignNullToNotNullAttribute
-                    var filePathAndNameWithoutExtension = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(files[0]), System.IO.Path.GetFileNameWithoutExtension(files[0]) + ".");
-// ReSharper restore AssignNullToNotNullAttribute
+                    var filePathAndNameWithoutExtension = Path.Combine(Path.GetDirectoryName(files[0]), Path.GetFileNameWithoutExtension(files[0]) + ".");
 
                     for (var i = 0; i < extensionArray.Length; i++)
                     {
-                        var extension = System.IO.Path.GetExtension(files[i]);
+                        var extension = Path.GetExtension(files[i]);
 
                         try
                         {
@@ -241,7 +247,7 @@ namespace LimsVisualizer
 
         private void _TextBoxPathTextChanged(object sender, EventArgs e)
         {
-            Path = textBoxPath.Text;
+            FilePath = textBoxPath.Text;
         }
     }
 }
