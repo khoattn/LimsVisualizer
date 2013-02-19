@@ -1,0 +1,869 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document Format="XmlInvariantCulture">
+  <Timestamp>
+    <Local>2013-02-19T10:00:00.0000000+01:00</Local>
+    <UTC>2013-02-19T09:00:00.0000000Z</UTC>
+  </Timestamp>
+  <Summary>
+    <Device Id="MPDS5-99999913">
+      <Name>mPDS5</Name>
+      <Location>Anton Paar</Location>
+      <SerialNumber>99999913</SerialNumber>
+      <FirmwareVersion>5.10.15688.32</FirmwareVersion>
+    </Device>
+    <Line Id="{e1d335ae-c33f-4cc4-9962-91bb55ac9444}">
+      <Name>Line 1</Name>
+    </Line>
+    <ActiveProduct>
+      <Product Id="{8f935cb4-1b15-4c9a-8223-c0bb1470c200}">
+        <Name>Product 1</Name>
+        <Number>1</Number>
+        <ProductType Id="BEERMON">
+          <Name>Beer 1</Name>
+        </ProductType>
+      </Product>
+    </ActiveProduct>
+  </Summary>
+  <MeasurementData>
+    <Timestamp>
+      <Local>2013-02-19T10:00:00.0000000+01:00</Local>
+      <UTC>2013-02-19T09:00:00.0000000Z</UTC>
+    </Timestamp>
+    <Product Id="{8f935cb4-1b15-4c9a-8223-c0bb1470c200}">
+      <Name>Product 1</Name>
+      <Number>1</Number>
+      <ProductType Id="BEERMON">
+        <Name>Beer 1</Name>
+      </ProductType>
+    </Product>
+    <SystemStatus>0</SystemStatus>
+    <DeviceStatus>0</DeviceStatus>
+    <LineStatus>0</LineStatus>
+    <IsFlowStopActive>False</IsFlowStopActive>
+    <IsHoldActive>False</IsHoldActive>
+    <Channels>
+      <Channel Id="BEERMON_ETHANOL%VV">
+        <Name>Alcohol 20 °C</Name>
+        <Unit Id="PERCENTVPERV">
+          <Name>% v/v</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">4.90457439422607</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>100</Hi>
+          <HiHi>100</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_ORIGINALEXTRACT-EC">
+        <Name>Original Extract</Name>
+        <Unit Id="DEGPLAT">
+          <Name>°Plato</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">10.7564811706543</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>40</Hi>
+          <HiHi>40</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_REALEXTRACT-EC">
+        <Name>Real Extract</Name>
+        <Unit Id="DEGPLAT">
+          <Name>°Plato</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">3.22989153862</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>30</Hi>
+          <HiHi>30</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_DENSITY20">
+        <Name>Density 20 °C</Name>
+        <Unit Id="KGPROM3">
+          <Name>kg/m³</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">1003.79144287109</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>2000</Hi>
+          <HiHi>2000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-CO2-PACKAGE">
+        <Name>CO2 Carbo Package</Name>
+        <Unit Id="GPROL">
+          <Name>g/l</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>10</Hi>
+          <HiHi>10</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_APPARENTDEGREEOFFERMENTATION">
+        <Name>App.Degree Ferment.</Name>
+        <Unit Id="PERCENT">
+          <Name>%</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">86.6333541870117</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>100</Hi>
+          <HiHi>100</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_REALDEGREEOFFERMENTATION">
+        <Name>Real Degree Ferment.</Name>
+        <Unit Id="PERCENT">
+          <Name>%</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">69.9726028442383</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>100</Hi>
+          <HiHi>100</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_TEMPERATURE">
+        <Name>Temperature</Name>
+        <Unit Id="degC">
+          <Name>°C</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">9.85403156280518</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>40</Hi>
+          <HiHi>40</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_APPARENTEXTRACT-EC">
+        <Name>Apparent Extract</Name>
+        <Unit Id="DEGPLAT">
+          <Name>°Plato</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">1.43778038024902</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>30</Hi>
+          <HiHi>30</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-CO2">
+        <Name>CO2 Carbo</Name>
+        <Unit Id="GPROL">
+          <Name>g/l</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>10</Hi>
+          <HiHi>10</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_SPECIFICGRAVITY20">
+        <Name>Spec. Gravity 20 °C</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">1.00559747219086</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>2</Hi>
+          <HiHi>2</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-CO2-PRESSURE">
+        <Name>CO2 Carbo Pressure</Name>
+        <Unit Id="Pa">
+          <Name>Pa</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>1E+07</Hi>
+          <HiHi>1E+07</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_PRESENTGRAVITY">
+        <Name>Pres. Gravity 20 °C</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">5.59751176834106</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>1000</Hi>
+          <HiHi>1000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_DENSITY15">
+        <Name>Density 15 °C</Name>
+        <Unit Id="KGPROM3">
+          <Name>kg/m³</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">1004.74591064453</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>2000</Hi>
+          <HiHi>2000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_ETHANOL%VV15">
+        <Name>Alcohol 15 °C</Name>
+        <Unit Id="PERCENTVPERV">
+          <Name>% v/v</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">4.88495588302612</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>100</Hi>
+          <HiHi>100</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-AIR">
+        <Name>Air-N2-O2</Name>
+        <Unit Id="OXMGPROL">
+          <Name>mg/l</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>20</Hi>
+          <HiHi>20</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_ORIGINALGRAVITY">
+        <Name>Original Gravity</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">43.1913757324219</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>160</Hi>
+          <HiHi>160</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_DENSITY">
+        <Name>Density</Name>
+        <Unit Id="KGPROM3">
+          <Name>kg/m³</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">1006.82574462891</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>2000</Hi>
+          <HiHi>2000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-PRESSURE-LINE">
+        <Name>Pressure Line Carbo</Name>
+        <Unit Id="Pa">
+          <Name>Pa</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>2000000</Hi>
+          <HiHi>2000000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-PRESSURE-GAS">
+        <Name>Pressure Gas Carbo</Name>
+        <Unit Id="Pa">
+          <Name>Pa</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>2000000</Hi>
+          <HiHi>2000000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_SOUNDVELOCITY">
+        <Name>Sound Velocity</Name>
+        <Unit Id="MPROS">
+          <Name>m/s</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">1500.4140625</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>3000</Hi>
+          <HiHi>3000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CO2SELECTED">
+        <Name>CO2 for Compens.</Name>
+        <Unit Id="GPROL">
+          <Name>g/l</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">5</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>20</Hi>
+          <HiHi>20</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-PRESSURE">
+        <Name>Pressure Carbo</Name>
+        <Unit Id="Pa">
+          <Name>Pa</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>2000000</Hi>
+          <HiHi>2000000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-TEMPERATURE">
+        <Name>Temperature Carbo</Name>
+        <Unit Id="degC">
+          <Name>°C</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>40</Hi>
+          <HiHi>40</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_DENSITYCO2COMPENSATED">
+        <Name>Density CO2 Comp.</Name>
+        <Unit Id="KGPROM3">
+          <Name>kg/m³</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">1005.45678710938</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>2000</Hi>
+          <HiHi>2000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_SOUNDVELOCITYCO2COMPENSATED">
+        <Name>Sound Vel. CO2 Comp.</Name>
+        <Unit Id="MPROS">
+          <Name>m/s</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">1496.71142578125</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>3000</Hi>
+          <HiHi>3000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_ETHANOL%WW">
+        <Name>Alcohol</Name>
+        <Unit Id="PERCENTWPERW">
+          <Name>% w/w</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">3.85626554489136</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>100</Hi>
+          <HiHi>100</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_REALDEGREEOFFERMENTATIONUSA">
+        <Name>Real Degree Ferm.USA</Name>
+        <Unit Id="PERCENT">
+          <Name>%</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">71.1587829589844</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>100</Hi>
+          <HiHi>100</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CALORIESUSA">
+        <Name>Calories kcal/12oz</Name>
+        <Unit Id="KCALPRO12OZ">
+          <Name>kcal/w</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">139.538391113281</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>1000</Hi>
+          <HiHi>1000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_REXTETHRATIO">
+        <Name>Real Ext./Alc. Ratio</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">0.837569773197174</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>100</Hi>
+          <HiHi>100</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_ETHREXTRATIO">
+        <Name>Alc./Real Ext. Ratio</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">1.19393038749695</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>100</Hi>
+          <HiHi>100</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_TEMPERATURE_F">
+        <Name>Temperature °F</Name>
+        <Unit Id="degF_F">
+          <Name>°F</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="0">49.7372550964355</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>110</Hi>
+          <HiHi>110</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CONDUCTIVITY">
+        <Name>Conductivity</Name>
+        <Unit Id="mSiemens">
+          <Name>mS/cm</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>100</Hi>
+          <HiHi>100</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_OXYGEN">
+        <Name>Oxygen</Name>
+        <Unit Id="OXMGPROL">
+          <Name>mg/l</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>10</Hi>
+          <HiHi>10</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_COUNTER_DATA1">
+        <Name>Counter 1</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Int32</DataType>
+        <MeasurementValue Status="0">0</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>1E+09</Hi>
+          <HiHi>1E+09</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_COUNTER_DATA2">
+        <Name>Counter 2</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Int32</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>1E+09</Hi>
+          <HiHi>1E+09</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-O2">
+        <Name>O2</Name>
+        <Unit Id="OXMGPROL">
+          <Name>mg/l</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>20</Hi>
+          <HiHi>20</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-N2">
+        <Name>N2</Name>
+        <Unit Id="OXMGPROL">
+          <Name>mg/l</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>20</Hi>
+          <HiHi>20</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CO2MEAS">
+        <Name>CO2 AI</Name>
+        <Unit Id="GPROL">
+          <Name>g/l</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>20</Hi>
+          <HiHi>20</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_AI-PH">
+        <Name>PH AI</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>14</Hi>
+          <HiHi>14</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_AI-Color">
+        <Name>Color AI</Name>
+        <Unit Id="CU">
+          <Name>Color Units (CU)</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>1000</Hi>
+          <HiHi>1000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_AI-TURBIDITY">
+        <Name>Turbidity AI</Name>
+        <Unit Id="EBC">
+          <Name>EBC</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>10</Hi>
+          <HiHi>10</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_AI-PRESSURE">
+        <Name>Pressure AI</Name>
+        <Unit Id="Pa">
+          <Name>Pa</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>5000000</Hi>
+          <HiHi>5000000</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_AI-FLOWRATE">
+        <Name>Volume Flow Rate AI</Name>
+        <Unit Id="M3PERS">
+          <Name>m³/s</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>10</Hi>
+          <HiHi>10</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_AI-GENERIC">
+        <Name>Generic AI 1</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>10</Hi>
+          <HiHi>10</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_AI-GENERIC2">
+        <Name>Generic AI 2</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>10</Hi>
+          <HiHi>10</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_AI-GENERIC3">
+        <Name>Generic AI 3</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Double</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>10</Hi>
+          <HiHi>10</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="BEERMON_CARBO-ERROR">
+        <Name>Error Carbo</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Int32</DataType>
+        <MeasurementValue Status="1006"></MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>255</Hi>
+          <HiHi>255</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="MPDS-V1.0_HOLD">
+        <Name>Hold</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Boolean</DataType>
+        <MeasurementValue Status="0">0</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>1</Hi>
+          <HiHi>1</HiHi>
+        </Limits>
+      </Channel>
+      <Channel Id="SYS_FLOWSTOP">
+        <Name>Flowstop</Name>
+        <Unit Id="default">
+          <Name>-</Name>
+        </Unit>
+        <DataType>Boolean</DataType>
+        <MeasurementValue Status="0">0</MeasurementValue>
+        <Limits Active="False">
+          <LoLo>0</LoLo>
+          <Lo>0</Lo>
+          <Target />
+          <Hi>1</Hi>
+          <HiHi>1</HiHi>
+        </Limits>
+      </Channel>
+    </Channels>
+  </MeasurementData>
+  <Comments>
+    <Comment>
+      <Timestamp>
+        <Local>2013-02-19T10:00:00.0000000+01:00</Local>
+        <UTC>2013-02-19T09:00:00.0000000Z</UTC>
+      </Timestamp>
+      <Product Id="{8f935cb4-1b15-4c9a-8223-c0bb1470c200}">
+        <Name>Product 1</Name>
+        <Number>1</Number>
+        <ProductType Id="BEERMON">
+          <Name>Beer 1</Name>
+        </ProductType>
+      </Product>
+      <Text>Dummy Comment</Text>
+    </Comment>
+  </Comments>
+  <Calibrations>
+    <Calibration Id="{a6a1ba41-7194-42c9-921b-e51584542df5}">
+      <Timestamp>
+        <Local>2013-02-19T10:00:00.0000000+01:00</Local>
+        <UTC>2013-02-19T09:00:00.0000000Z</UTC>
+      </Timestamp>
+      <Product Id="{8f935cb4-1b15-4c9a-8223-c0bb1470c200}">
+        <Name>Product 1</Name>
+        <Number>1</Number>
+        <ProductType Id="BEERMON">
+          <Name>Beer 1</Name>
+        </ProductType>
+      </Product>
+      <UserName />
+      <Channels>
+        <Channel Id="BEERMON_TEMPERATURE">
+          <Name>Temperature</Name>
+          <Unit Id="degC">
+            <Name>°C</Name>
+          </Unit>
+          <DataType>Double</DataType>
+          <SavedValue>9.85403156280518</SavedValue>
+          <Reference>10</Reference>
+          <Deviation>-0.145968437194824</Deviation>
+        </Channel>
+      </Channels>
+    </Calibration>
+  </Calibrations>
+  <Adjustments>
+    <Adjustment Id="{fe131534-63f0-4fc8-8677-ae644edb1cc7}">
+      <Timestamp>
+        <Local>2013-02-19T10:00:00.0000000+01:00</Local>
+        <UTC>2013-02-19T09:00:00.0000000Z</UTC>
+      </Timestamp>
+      <Product Id="{8f935cb4-1b15-4c9a-8223-c0bb1470c200}">
+        <Name>Product 1</Name>
+        <Number>1</Number>
+        <ProductType Id="BEERMON">
+          <Name>Beer 1</Name>
+        </ProductType>
+      </Product>
+      <UserName />
+      <Channels>
+        <Channel Id="BEERMON_TEMPERATURE">
+          <Name>Temperature</Name>
+          <Unit Id="degC">
+            <Name>°C</Name>
+          </Unit>
+          <DataType>Double</DataType>
+          <AverageDeviation>-0.145968437194824</AverageDeviation>
+          <OriginalGain>1</OriginalGain>
+          <AdjustedGain>1.0148130677545</AdjustedGain>
+        </Channel>
+      </Channels>
+    </Adjustment>
+  </Adjustments>
+</Document>
