@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>95f69cd9-545f-4552-94fb-3c7547dfabe3</ProjectGuid>
+    <ProjectGuid>{E268D8A9-8CAC-4D3C-962C-ADA398B8CA97}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LimsSimulator</RootNamespace>
