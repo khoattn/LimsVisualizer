@@ -34,14 +34,15 @@ namespace LimsHelper
                 {
                     Logger.WriteFailureMessage("Parsing file failed!");
                     Logger.WriteException(exception);
+                    throw;
                 }
             }
             catch (Exception exception)
             {
                 Logger.WriteFailureMessage("Parsing file failed!");
                 Logger.WriteException(exception);
+                throw;
             }
-            return null;
         }
 
         private Document _ParseFile(Stream fileStream, string path)
