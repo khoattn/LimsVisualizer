@@ -79,6 +79,15 @@ namespace LimsSimulator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The provided sample file does not exist!.
+        /// </summary>
+        internal static string SampleFileNotExists {
+            get {
+                return ResourceManager.GetString("SampleFileNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         internal static string Start {

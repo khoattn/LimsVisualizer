@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
+using LimsHelper;
 using LimsSimulator.Properties;
 using Threading = System.Threading;
 using System.Windows.Forms;
@@ -13,10 +15,16 @@ namespace LimsSimulator
         private TimeSpan mDueTime;
         private string mSampleFile;
         private string mDestinationPath;
+        private Logger mLogWriter = new Logger();
+        private Parser mParser = new Parser();
+        private int mExtensionCounter = 0;
 
         public MainForm()
         {
             InitializeComponent();
+            mLogWriter.ApplicationName = "LimsVsiulizer";
+            mLogWriter.LogFilePath = System.IO.Path.Combine(Environment.GetEnvironmentVariable("TEMP"), "LimsVisualizer");
+            mParser.Logger = mLogWriter;
         }
 
         private void _LimsSimulatorLoad(object sender, EventArgs e)
@@ -113,9 +121,20 @@ namespace LimsSimulator
                     MessageBoxIcon.Information);
                 return;
             }
+            if (!File.Exists(textBoxSampleFile.Text))
+            {
+                MessageBox.Show(Resources.SampleFileNotExists, Resources.Info, MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
 
             mSampleFile = textBoxSampleFile.Text;
             mDestinationPath = textBoxDestinationPath.Text;
+
+            if (!Directory.Exists(mDestinationPath))
+            {
+                Directory.CreateDirectory(mDestinationPath);
+            }
 
             sTimer = new Threading.Timer(_TimerHandler);
             _StartHandler();
@@ -154,7 +173,16 @@ namespace LimsSimulator
 
         private void _WriteFile()
         {
-            throw new NotImplementedException();
+            File.Copy(mSampleFile, _GetNextFileName(), true);
+        }
+
+        private string _GetNextFileName()
+        {
+            var fileName = Path.GetFileNameWithoutExtension(mSampleFile);
+            var newFileNameWithExtension = string.Format("{0}.{1}", fileName, mExtensionCounter);
+            var destinationPath = Path.Combine(mDestinationPath, newFileNameWithExtension);
+            mExtensionCounter++;
+            return destinationPath;
         }
 
         private static void _StopHandler()
