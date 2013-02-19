@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using LimsHelper;
 using LimsVisualizer.Properties;
 using Threading = System.Threading;
 
@@ -27,6 +28,9 @@ namespace LimsVisualizer
         public MainForm()
         {
             sInstance = this;
+            LogWriter.ApplicationName = "LimsVsiulizer";
+            LogWriter.LogFilePath = System.IO.Path.Combine(Environment.GetEnvironmentVariable("TEMP"), "LimsVisualizer");
+            mParser.Logger = LogWriter;
             InitializeComponent();
         }
 
@@ -42,7 +46,7 @@ namespace LimsVisualizer
         {
             folderBrowserDialog.SelectedPath = Path;
 
-            if (folderBrowserDialog.ShowDialog()== DialogResult.OK)
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 Path = textBoxPath.Text = folderBrowserDialog.SelectedPath;
             }

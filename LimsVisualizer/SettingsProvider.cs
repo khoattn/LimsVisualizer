@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 
@@ -45,8 +45,8 @@ namespace LimsVisualizer
                 var fileStream = new FileStream(mSettingsFile, FileMode.Create, FileAccess.Write, FileShare.None);
                 var settingsWriter = new StreamWriter(fileStream);
 
-                settingsWriter.WriteLine(MainForm.Path);
-                settingsWriter.WriteLine(MainForm.DueTime.ToString(CultureInfo.InvariantCulture));
+                settingsWriter.WriteLine((string) MainForm.Path);
+                settingsWriter.WriteLine((string) MainForm.DueTime.ToString(CultureInfo.InvariantCulture));
                 settingsWriter.Close();
                 MainForm.LogWriter.WriteDebugMessage("Settings file was successfully written.");
             }

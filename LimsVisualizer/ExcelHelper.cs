@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using LimsHelper;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LimsVisualizer
