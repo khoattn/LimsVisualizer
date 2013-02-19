@@ -1,7 +1,7 @@
 #LimsVisualizer
 
 ##PREREQUISITES
-- .NET Framework 4
+- .NET Framework 4.5
 - Microsoft Excel 2010
 
 ##INSTRUCTIONS:
