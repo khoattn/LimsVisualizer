@@ -115,6 +115,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Templates\TemplateWorkBook.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Interop.Excel">
@@ -137,7 +140,7 @@
     <Content Include="Icons\LV__256x256.png" />
     <Content Include="Icons\LV__32x32.png" />
     <Content Include="Icons\LV__48x48.png" />
-    <Content Include="ReadMe.txt">
+    <Content Include="..\ReadMe.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
