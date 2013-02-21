@@ -1,15 +1,14 @@
 using System;
 using System.Globalization;
 using System.IO;
-using LimsHelper;
 
-namespace LimsVisualizer
+namespace LimsHelper
 {
     class SettingsProvider
     {
         private string SettingsFile
         {
-            get { return Path.Combine(Environment.GetEnvironmentVariable("TEMP"), ApplicationName ,@"settings.txt"); }
+            get { return Path.Combine(Environment.GetEnvironmentVariable("TEMP"), ApplicationName, @"settings.txt"); }
         }
 
         public string ApplicationName { private get; set; }
@@ -134,16 +133,5 @@ namespace LimsVisualizer
         }
     }
 
-    class LimsVisualizerSettings
-    {
-        public string FilePath { get; set; }
-        public int DueTime { get; set; }
-    }
 
-    class LimsSimulatorSettings
-    {
-        public string SampleFile { get; set; }
-        public string DestinationPath { get; set; }
-        public int DueTime { get; set; }
-    }
 }
