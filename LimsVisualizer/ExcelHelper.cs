@@ -9,8 +9,9 @@ namespace LimsVisualizer
     {
         private Excel.Application mApplication;
         private Excel._Workbook mWorkbook;
-        private Excel._Worksheet mWorksheet;
+        private Excel.Worksheet mMeasurementDataWorksheet;
         private Excel.Range mRange;
+        private Excel.Worksheet mMiscellaneousDataWorksheet;
 
         public void StartExcel()
         {
@@ -45,24 +46,24 @@ namespace LimsVisualizer
                     channelNames[i] = document.MeasurementData.Channels[i - 1].Name + " [" + document.MeasurementData.Channels[i - 1].Unit.Name + "]";
                 }
 
-                mWorksheet.Cells[1, 1] = "Device Name:";
-                mWorksheet.Cells[1, 2] = document.Summary.Device.Id;
-                mWorksheet.Cells[2, 1] = "Line Name:";
-                mWorksheet.Cells[2, 2] = document.Summary.Line.Name;
-                mWorksheet.Cells[3, 1] = "Product Type:";
-                mWorksheet.Cells[3, 2] = document.Summary.ActiveProduct.Product.ProductType.Name;
-                mWorksheet.Cells[4, 1] = "Product Name:";
-                mWorksheet.Cells[4, 2] = document.Summary.ActiveProduct.Product.Name;
+                mMeasurementDataWorksheet.Cells[1, 1] = "Device Name:";
+                mMeasurementDataWorksheet.Cells[1, 2] = document.Summary.Device.Id;
+                mMeasurementDataWorksheet.Cells[2, 1] = "Line Name:";
+                mMeasurementDataWorksheet.Cells[2, 2] = document.Summary.Line.Name;
+                mMeasurementDataWorksheet.Cells[3, 1] = "Product Type:";
+                mMeasurementDataWorksheet.Cells[3, 2] = document.Summary.ActiveProduct.Product.ProductType.Name;
+                mMeasurementDataWorksheet.Cells[4, 1] = "Product Name:";
+                mMeasurementDataWorksheet.Cells[4, 2] = document.Summary.ActiveProduct.Product.Name;
 
-                mWorksheet.Range["A1", "B4"].Borders.Weight = Excel.XlBorderWeight.xlMedium;
+                mMeasurementDataWorksheet.Range["A1", "B4"].Borders.Weight = Excel.XlBorderWeight.xlMedium;
 
-                mRange = mWorksheet.Range["A6", "A6"].Resize[Missing.Value, channelNames.Length];
+                mRange = mMeasurementDataWorksheet.Range["A6", "A6"].Resize[Missing.Value, channelNames.Length];
                 mRange.Value2 = channelNames;
                 mRange.Font.Bold = true;
                 mRange.EntireColumn.AutoFit();
                 mRange.Borders.Weight = Excel.XlBorderWeight.xlMedium;
-                mWorksheet.Application.ActiveWindow.SplitRow = 6;
-                mWorksheet.Application.ActiveWindow.FreezePanes = true;
+                mMeasurementDataWorksheet.Application.ActiveWindow.SplitRow = 6;
+                mMeasurementDataWorksheet.Application.ActiveWindow.FreezePanes = true;
                 MainForm.LogWriter.WriteDebugMessage("Added Header successfully.");
             }
             catch (Exception exception)
@@ -94,28 +95,28 @@ namespace LimsVisualizer
                 }
 
                 //Add timestamp
-                var cell = "A" + (mWorksheet.UsedRange.Rows.Count + 1);
+                var cell = "A" + (mMeasurementDataWorksheet.UsedRange.Rows.Count + 1);
                 mWorkbook.Activate();
-                mWorksheet.Activate();
-                mRange = mWorksheet.Range[cell];
+                mMeasurementDataWorksheet.Activate();
+                mRange = mMeasurementDataWorksheet.Range[cell];
                 mRange.Value2 = document.MeasurementData.Timestamp.Local.ToShortDateString() + " " +
                                 document.MeasurementData.Timestamp.Local.ToLongTimeString() + "." + document.MeasurementData.Timestamp.Local.Millisecond;
 
                 //Add measuring values
-                cell = "B" + (mWorksheet.UsedRange.Rows.Count);
-                mRange = mWorksheet.Range[cell, cell].Resize[Missing.Value, measurementValues.Length];
+                cell = "B" + (mMeasurementDataWorksheet.UsedRange.Rows.Count);
+                mRange = mMeasurementDataWorksheet.Range[cell, cell].Resize[Missing.Value, measurementValues.Length];
                 mRange.Value2 = measurementValues;
 
                 //Format row
-                cell = "A" + (mWorksheet.UsedRange.Rows.Count);
-                mRange = mWorksheet.Range[cell, cell].Resize[Missing.Value, measurementValues.Length + 1];
+                cell = "A" + (mMeasurementDataWorksheet.UsedRange.Rows.Count);
+                mRange = mMeasurementDataWorksheet.Range[cell, cell].Resize[Missing.Value, measurementValues.Length + 1];
                 mRange.EntireColumn.AutoFit();
                 mRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
 
                 //Display and focus new row
                 mApplication.ScreenUpdating = true;
                 mWorkbook.Activate();
-                mWorksheet.Activate();
+                mMeasurementDataWorksheet.Activate();
                 mRange.Activate();
 
                 MainForm.LogWriter.WriteDebugMessage("Added Measuring Data successfully.");
@@ -137,8 +138,8 @@ namespace LimsVisualizer
                 if (mRange != null)
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(mRange);
 
-                if (mWorksheet != null)
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(mWorksheet);
+                if (mMeasurementDataWorksheet != null)
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(mMeasurementDataWorksheet);
 
                 if (mWorkbook != null)
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(mWorkbook);
@@ -164,7 +165,18 @@ namespace LimsVisualizer
         {
             MainForm.LogWriter.WriteDebugMessage("Creating new workbook.");
             mWorkbook = mApplication.Workbooks.Add(Missing.Value);
-            mWorksheet = (Excel._Worksheet)mWorkbook.ActiveSheet;
+            mMeasurementDataWorksheet = (Excel.Worksheet)mWorkbook.Sheets.Item[1];
+            mMiscellaneousDataWorksheet = (Excel.Worksheet)mWorkbook.Sheets.Item[2];
+            var sheet3 = (Excel.Worksheet)mWorkbook.Sheets.Item[3];
+            
+            //Rename first and second worksheet, delete third worksheet
+            mMeasurementDataWorksheet.Name = "Measurement Data";
+            mMiscellaneousDataWorksheet.Name = "Miscellaneous Data";
+            sheet3.Delete();
+
+            //Set measurement data worksheet as active worksheet
+            mMeasurementDataWorksheet.Activate();
+            
             MainForm.HeadersWritten = false;
             MainForm.LogWriter.WriteDebugMessage("Created new workbook.");
         }
