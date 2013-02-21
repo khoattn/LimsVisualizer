@@ -10,7 +10,7 @@ namespace LimsHelper
 {
     public class Parser
     {
-        public Logger Logger { get; set; }
+        public Logger Logger { private get; set; }
 
         public Document ParseFile(string path)
         {
