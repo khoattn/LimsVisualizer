@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using LimsHelper;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -163,16 +164,20 @@ namespace LimsVisualizer
 
         public void CreateWorkbook()
         {
+            var templateFile = Path.Combine(System.Windows.Forms.Application.StartupPath,
+                @"Templates\TemplateWorkBook.xlsx");
             MainForm.LogWriter.WriteDebugMessage("Creating new workbook.");
-            mWorkbook = mApplication.Workbooks.Add(Missing.Value);
+            //mWorkbook = mApplication.Workbooks.Add(Missing.Value);
+            mWorkbook = mApplication.Workbooks.Add(templateFile);
+            
             mMeasurementDataWorksheet = (Excel.Worksheet)mWorkbook.Sheets.Item[1];
             mMiscellaneousDataWorksheet = (Excel.Worksheet)mWorkbook.Sheets.Item[2];
-            var sheet3 = (Excel.Worksheet)mWorkbook.Sheets.Item[3];
+            //var sheet3 = (Excel.Worksheet)mWorkbook.Sheets.Item[3];
             
             //Rename first and second worksheet, delete third worksheet
-            mMeasurementDataWorksheet.Name = "Measurement Data";
-            mMiscellaneousDataWorksheet.Name = "Miscellaneous Data";
-            sheet3.Delete();
+            //mMeasurementDataWorksheet.Name = "Measurement Data";
+            //mMiscellaneousDataWorksheet.Name = "Miscellaneous Data";
+            //sheet3.Delete();
 
             //Set measurement data worksheet as active worksheet
             mMeasurementDataWorksheet.Activate();
