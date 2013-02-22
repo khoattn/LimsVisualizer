@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,11 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Document.cs" />
-    <Compile Include="ErrorMessage.cs">
+    <Compile Include="PopupMessage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ErrorMessage.Designer.cs">
-      <DependentUpon>ErrorMessage.cs</DependentUpon>
+    <Compile Include="PopupMessage.Designer.cs">
+      <DependentUpon>PopupMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="Parser.cs" />
@@ -64,12 +65,11 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Settings.cs" />
     <Compile Include="SettingsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ErrorMessage.resx">
-      <DependentUpon>ErrorMessage.cs</DependentUpon>
+    <EmbeddedResource Include="PopupMessage.resx">
+      <DependentUpon>PopupMessage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

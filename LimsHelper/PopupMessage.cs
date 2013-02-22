@@ -5,40 +5,34 @@ using LimsHelper.Properties;
 
 namespace LimsHelper
 {
-    public partial class ErrorMessage : Form
+    public partial class PopupMessage : Form
     {
-        private string mMessage;
-        private string mDetails;
-
-        public ErrorMessage()
+        public PopupMessage()
         {
             InitializeComponent();
         }
 
-        public void ShowErrorDialog(Form owner, string message, string details)
+        public void ShowDialog(Form owner, string message, string details)
         {
-            mMessage = message;
-            mDetails = details;
-            icon.Image = Resources.error_128x128;
-            labelTitle.Text = Type.ToUpper();
-            labelMessage.Text = mMessage;
-            textBoxDetails.Text = mDetails;
+            icon.Image = (Type == PopupMessageType.Error) ? Resources.ErrorIcon : Resources.InformationIcon;
+            labelTitle.Text = (Type == PopupMessageType.Error) ? Resources.ErrorTitle.ToUpper() : Resources.InfoTitle.ToUpper();
+            labelMessage.Text = message;
+            textBoxDetails.Text = details;
 
             ShowDialog(owner);
         }
 
-        public void ShowInformationDialog(Form owner, string message)
+        public void ShowDialog(Form owner, string message)
         {
-            mMessage = message;
-            icon.Image = Resources.information_128x128;
-            labelTitle.Text = Type.ToUpper();
-            labelMessage.Text = mMessage;
+            icon.Image =(Type == PopupMessageType.Error) ? Resources.ErrorIcon : Resources.InformationIcon;
+            labelTitle.Text = (Type == PopupMessageType.Error) ? Resources.ErrorTitle.ToUpper() : Resources.InfoTitle.ToUpper();
+            labelMessage.Text = message;
             buttonDetails.Visible = false;
 
             ShowDialog(owner);
         }
 
-        public string Type { get; set; }
+        public PopupMessageType Type { private get; set; }
 
         private void _ButtonDetailsClick(object sender, EventArgs e)
         {
@@ -59,5 +53,11 @@ namespace LimsHelper
                 splitContainer1.SplitterDistance = tempSize.Height;
             }
         }
+    }
+
+    public enum PopupMessageType
+    {
+        Error,
+        Info
     }
 }

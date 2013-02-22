@@ -1,6 +1,6 @@
 namespace LimsHelper
 {
-    partial class ErrorMessage
+    partial class PopupMessage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@ namespace LimsHelper
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ErrorMessage));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PopupMessage));
             this.icon = new System.Windows.Forms.PictureBox();
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonDetails = new System.Windows.Forms.Button();
@@ -130,7 +130,7 @@ namespace LimsHelper
             this.textBoxDetails.Size = new System.Drawing.Size(150, 46);
             this.textBoxDetails.TabIndex = 4;
             // 
-            // ErrorMessage
+            // PopupMessage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -141,7 +141,7 @@ namespace LimsHelper
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ErrorMessage";
+            this.Name = "PopupMessage";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lims Visualizer - Error";

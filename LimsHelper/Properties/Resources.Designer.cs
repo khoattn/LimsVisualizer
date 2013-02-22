@@ -72,10 +72,19 @@ namespace LimsHelper.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap error_128x128 {
+        internal static System.Drawing.Bitmap ErrorIcon {
             get {
-                object obj = ResourceManager.GetObject("error_128x128", resourceCulture);
+                object obj = ResourceManager.GetObject("ErrorIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
             }
         }
         
@@ -89,21 +98,21 @@ namespace LimsHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Info.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static string Info {
+        internal static System.Drawing.Bitmap InformationIcon {
             get {
-                return ResourceManager.GetString("Info", resourceCulture);
+                object obj = ResourceManager.GetObject("InformationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Info.
         /// </summary>
-        internal static System.Drawing.Bitmap information_128x128 {
+        internal static string InfoTitle {
             get {
-                object obj = ResourceManager.GetObject("information_128x128", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("InfoTitle", resourceCulture);
             }
         }
         
