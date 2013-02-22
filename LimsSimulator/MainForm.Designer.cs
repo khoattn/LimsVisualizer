@@ -150,7 +150,8 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Lims Simulator";
-            this.Load += new System.EventHandler(this._LimsSimulatorLoad);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this._FormMainClosing);
+            this.Load += new System.EventHandler(this._FormMainLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 
