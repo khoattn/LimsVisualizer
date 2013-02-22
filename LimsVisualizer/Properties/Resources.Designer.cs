@@ -59,23 +59,5 @@ namespace LimsVisualizer.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ERROR.
-        /// </summary>
-        internal static string Error {
-            get {
-                return ResourceManager.GetString("Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to INFO.
-        /// </summary>
-        internal static string Info {
-            get {
-                return ResourceManager.GetString("Info", resourceCulture);
-            }
-        }
     }
 }
