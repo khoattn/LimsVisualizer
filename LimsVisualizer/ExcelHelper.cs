@@ -43,7 +43,7 @@ namespace LimsVisualizer
                 var channelNames = new string[document.MeasurementData.Channels.Count + 1];
                 channelNames[0] = "Timestamp";
 
-                for (int i = 1; i < channelNames.Length; i++)
+                for (var i = 1; i < channelNames.Length; i++)
                 {
                     channelNames[i] = document.MeasurementData.Channels[i - 1].Name + " [" + document.MeasurementData.Channels[i - 1].Unit.Name + "]";
                 }
@@ -300,13 +300,12 @@ namespace LimsVisualizer
                 mWorkbook.Windows.Item[2].Activate();
                 //mMeasurementDataWorksheet.Activate();
 
-                var range = mMiscellaneousDataWorksheet.Range[cell];
                 //range.Value2 = document.MeasurementData.Timestamp.Local.ToShortDateString() + " " +
                 //                document.MeasurementData.Timestamp.Local.ToLongTimeString() + "." + document.MeasurementData.Timestamp.Local.Millisecond;
 
                 ////Add measuring values
                 //cell = "B" + (mMiscellaneousDataWorksheet.UsedRange.Rows.Count);
-                range = mMiscellaneousDataWorksheet.Range[cell, cell].Resize[Missing.Value, values.Length];
+                var range = mMiscellaneousDataWorksheet.Range[cell, cell].Resize[Missing.Value, values.Length];
                 range.Value2 = values;
 
                 //Format row
