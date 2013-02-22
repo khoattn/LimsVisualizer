@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using LimsHelper;
@@ -47,24 +48,59 @@ namespace LimsVisualizer
                     channelNames[i] = document.MeasurementData.Channels[i - 1].Name + " [" + document.MeasurementData.Channels[i - 1].Unit.Name + "]";
                 }
 
-                mMeasurementDataWorksheet.Cells[1, 1] = "Device Name:";
-                mMeasurementDataWorksheet.Cells[1, 2] = document.Summary.Device.Id;
-                mMeasurementDataWorksheet.Cells[2, 1] = "Line Name:";
-                mMeasurementDataWorksheet.Cells[2, 2] = document.Summary.Line.Name;
-                mMeasurementDataWorksheet.Cells[3, 1] = "Product Type:";
-                mMeasurementDataWorksheet.Cells[3, 2] = document.Summary.ActiveProduct.Product.ProductType.Name;
-                mMeasurementDataWorksheet.Cells[4, 1] = "Product Name:";
-                mMeasurementDataWorksheet.Cells[4, 2] = document.Summary.ActiveProduct.Product.Name;
+                //Add general header for measurement data worksheet
+                _WriteDeviceInfo(mMeasurementDataWorksheet, document);
 
-                mMeasurementDataWorksheet.Range["A1", "B4"].Borders.Weight = Excel.XlBorderWeight.xlMedium;
+                //Add general header for miscellaneous data worksheet
+                _WriteDeviceInfo(mMiscellaneousDataWorksheet, document);
 
-                mRange = mMeasurementDataWorksheet.Range["A6", "A6"].Resize[Missing.Value, channelNames.Length];
-                mRange.Value2 = channelNames;
-                mRange.Font.Bold = true;
-                mRange.EntireColumn.AutoFit();
-                mRange.Borders.Weight = Excel.XlBorderWeight.xlMedium;
-                mMeasurementDataWorksheet.Application.ActiveWindow.SplitRow = 6;
-                mMeasurementDataWorksheet.Application.ActiveWindow.FreezePanes = true;
+                var miscColumnHeadersRow1 = new[]
+                {
+                    "System Status",
+                    "Device Status",
+                    "Line Status",
+                    "Timestamp",
+                    "Comment",
+                    "Calibration",
+                    string.Empty,
+                    string.Empty,
+                    string.Empty,
+                    string.Empty,
+                    "Adjustment",
+                    string.Empty,
+                    string.Empty,
+                    string.Empty,
+                    string.Empty
+                };
+
+                var miscColumnHeadersRow2 = new[]
+                {
+                    string.Empty,
+                    string.Empty,
+                    string.Empty,
+                    string.Empty,
+                    string.Empty,
+                    "User Name",
+                    "Channel",
+                    "Saved Value",
+                    "Reference Value",
+                    "Deviation",
+                    "User Name",
+                    "Channel",
+                    "Average Deviation",
+                    "Original Gain",
+                    "New Gain"
+                };
+                
+                _WriteColumnHeaders(mMeasurementDataWorksheet, "A6", channelNames);
+                _WriteColumnHeaders(mMiscellaneousDataWorksheet, "A6", miscColumnHeadersRow1);
+                _WriteColumnHeaders(mMiscellaneousDataWorksheet, "A7", miscColumnHeadersRow2);
+
+                mMeasurementDataWorksheet.Application.Windows.Item[1].SplitRow = 6;
+                mMeasurementDataWorksheet.Application.Windows.Item[1].FreezePanes = true;
+
+                mMiscellaneousDataWorksheet.Application.Windows.Item[2].SplitRow = 7;
+                mMiscellaneousDataWorksheet.Application.Windows.Item[2].FreezePanes = true;
                 MainForm.LogWriter.WriteDebugMessage("Added Header successfully.");
             }
             catch (Exception exception)
@@ -73,6 +109,29 @@ namespace LimsVisualizer
                 MainForm.LogWriter.WriteException(exception);
                 MainForm.ShowErrorMessage(exception);
             }
+        }
+
+        private void _WriteDeviceInfo(Excel._Worksheet worksheet, Document document)
+        {
+            worksheet.Cells[1, 1] = "Device Name:";
+            worksheet.Cells[1, 2] = document.Summary.Device.Id;
+            worksheet.Cells[2, 1] = "Line Name:";
+            worksheet.Cells[2, 2] = document.Summary.Line.Name;
+            worksheet.Cells[3, 1] = "Product Type:";
+            worksheet.Cells[3, 2] = document.Summary.ActiveProduct.Product.ProductType.Name;
+            worksheet.Cells[4, 1] = "Product Name:";
+            worksheet.Cells[4, 2] = document.Summary.ActiveProduct.Product.Name;
+
+            worksheet.Range["A1", "B4"].Borders.Weight = Excel.XlBorderWeight.xlMedium;
+        }
+
+        private void _WriteColumnHeaders(Excel._Worksheet worksheet, string startCell, ICollection<string> columnHeaders)
+        {
+            mRange = worksheet.Range[startCell, startCell].Resize[Missing.Value, columnHeaders.Count];
+            mRange.Value2 = columnHeaders;
+            mRange.Font.Bold = true;
+            mRange.EntireColumn.AutoFit();
+            mRange.Borders.Weight = Excel.XlBorderWeight.xlMedium;
         }
 
         public void AddMeasurementValues(Document document)
