@@ -30,18 +30,33 @@ namespace LimsHelper
             mLogWriter.Flush();
         }
 
+        public void WriteMessage(LoggerMessageType messageType, string message)
+        {
+            mLogWriter.WriteLine("[{0}] [{1:dd.MM.yyyy HH:mm:ss}.{2}] {3}",messageType.ToString().ToUpper(), DateTime.Now, DateTime.Now.Millisecond, message);
+            mLogWriter.Flush();
+        }
+
+        public void WriteMessage(LoggerMessageType messageType, Exception exception)
+        {
+            mLogWriter.WriteLine("[{0}] [{1:dd.MM.yyyy HH:mm:ss}.{2}] {3}", messageType.ToString().ToUpper(), DateTime.Now, DateTime.Now.Millisecond, exception);
+            mLogWriter.Flush();
+        }
+
+        [Obsolete("Use 'WriteMessage(LoggerMessageType messageType, string message)' instead.")]
         public void WriteDebugMessage(string message)
         {
             mLogWriter.WriteLine("[DEBUG] [{0:dd.MM.yyyy HH:mm:ss}.{1}] {2}", DateTime.Now, DateTime.Now.Millisecond, message);
             mLogWriter.Flush();
         }
 
+        [Obsolete("Use 'WriteMessage(LoggerMessageType messageType, string message)' instead.")]
         public void WriteFailureMessage(string message)
         {
             mLogWriter.WriteLine("[FAILURE] [{0:dd.MM.yyyy HH:mm:ss}.{1}] {2}", DateTime.Now, DateTime.Now.Millisecond, message);
             mLogWriter.Flush();
         }
 
+        [Obsolete("Use 'WriteMessage(LoggerMessageType messageType, Exception exception)' instead.")]
         public void WriteException(Exception exception)
         {
             mLogWriter.WriteLine("[EXCEPTION] [{0:dd.MM.yyyy HH:mm:ss}.{1}] {2}", DateTime.Now, DateTime.Now.Millisecond, exception);
@@ -54,5 +69,12 @@ namespace LimsHelper
             mLogWriter.Flush();
             mLogWriter.Close();
         }
+    }
+
+    public enum LoggerMessageType
+    {
+        Debug,
+        Failure,
+        Exception
     }
 }
