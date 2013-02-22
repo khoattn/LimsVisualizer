@@ -7,8 +7,9 @@ namespace LimsHelper
     {
         private StreamWriter mLogWriter;
 
-        public string LogFilePath { get; set; }
-        public string ApplicationName { get; set; }
+        public string LogFilePath { private get; set; }
+        public string ApplicationName { private get; set; }
+        public string ApplicationVersion { private get; set; }
 
         public void Initialize()
         {
@@ -25,7 +26,7 @@ namespace LimsHelper
                 DateTime.Now,
                 DateTime.Now.Millisecond,
                 ApplicationName,
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+                ApplicationVersion);
             mLogWriter.Flush();
         }
 
