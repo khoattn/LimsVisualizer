@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Lims Visualizer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Anton Paar GmbH")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Lims Visualizer")]
-[assembly: AssemblyCopyright("Copyright © Anton Paar GmbH 2012")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
