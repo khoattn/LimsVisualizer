@@ -13,7 +13,6 @@ namespace LimsVisualizer
         private Excel._Workbook mWorkbook;
         private Excel._Worksheet mMeasurementDataWorksheet;
         private Excel._Worksheet mMiscellaneousDataWorksheet;
-        private Excel.Range mRange;
 
         public void StartExcel()
         {
@@ -96,6 +95,14 @@ namespace LimsVisualizer
                 _WriteColumnHeaders(mMiscellaneousDataWorksheet, "A6", miscColumnHeadersRow1);
                 _WriteColumnHeaders(mMiscellaneousDataWorksheet, "A7", miscColumnHeadersRow2);
 
+                _MergeCells(mMiscellaneousDataWorksheet, "A6", "A7");
+                _MergeCells(mMiscellaneousDataWorksheet, "B6", "B7");
+                _MergeCells(mMiscellaneousDataWorksheet, "C6", "C7");
+                _MergeCells(mMiscellaneousDataWorksheet, "D6", "D7");
+                _MergeCells(mMiscellaneousDataWorksheet, "E6", "E7");
+                _MergeCells(mMiscellaneousDataWorksheet, "F6", "J6");
+                _MergeCells(mMiscellaneousDataWorksheet, "K6", "O6");
+
                 mMeasurementDataWorksheet.Application.Windows.Item[1].SplitRow = 6;
                 mMeasurementDataWorksheet.Application.Windows.Item[1].FreezePanes = true;
 
@@ -111,7 +118,15 @@ namespace LimsVisualizer
             }
         }
 
-        private void _WriteDeviceInfo(Excel._Worksheet worksheet, Document document)
+        private static void _MergeCells(Excel._Worksheet worksheet, string startCell, string endCell)
+        {
+            var range = worksheet.Range[startCell, endCell];
+            //range.Style.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            //range.Style.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            range.MergeCells = true;
+        }
+
+        private static void _WriteDeviceInfo(Excel._Worksheet worksheet, Document document)
         {
             worksheet.Cells[1, 1] = "Device Name:";
             worksheet.Cells[1, 2] = document.Summary.Device.Id;
@@ -125,13 +140,13 @@ namespace LimsVisualizer
             worksheet.Range["A1", "B4"].Borders.Weight = Excel.XlBorderWeight.xlMedium;
         }
 
-        private void _WriteColumnHeaders(Excel._Worksheet worksheet, string startCell, ICollection<string> columnHeaders)
+        private static void _WriteColumnHeaders(Excel._Worksheet worksheet, string startCell, ICollection<string> columnHeaders)
         {
-            mRange = worksheet.Range[startCell, startCell].Resize[Missing.Value, columnHeaders.Count];
-            mRange.Value2 = columnHeaders;
-            mRange.Font.Bold = true;
-            mRange.EntireColumn.AutoFit();
-            mRange.Borders.Weight = Excel.XlBorderWeight.xlMedium;
+            var range = worksheet.Range[startCell, startCell].Resize[Missing.Value, columnHeaders.Count];
+            range.Value2 = columnHeaders;
+            range.Font.Bold = true;
+            range.EntireColumn.AutoFit();
+            range.Borders.Weight = Excel.XlBorderWeight.xlMedium;
         }
 
         public void AddMeasurementValues(Document document)
@@ -160,20 +175,20 @@ namespace LimsVisualizer
                 //Splitview handling?
                 mWorkbook.Windows.Item[1].Activate();
                 //mMeasurementDataWorksheet.Activate();
-                mRange = mMeasurementDataWorksheet.Range[cell];
-                mRange.Value2 = document.MeasurementData.Timestamp.Local.ToShortDateString() + " " +
+                var range = mMeasurementDataWorksheet.Range[cell];
+                range.Value2 = document.MeasurementData.Timestamp.Local.ToShortDateString() + " " +
                                 document.MeasurementData.Timestamp.Local.ToLongTimeString() + "." + document.MeasurementData.Timestamp.Local.Millisecond;
 
                 //Add measuring values
                 cell = "B" + (mMeasurementDataWorksheet.UsedRange.Rows.Count);
-                mRange = mMeasurementDataWorksheet.Range[cell, cell].Resize[Missing.Value, measurementValues.Length];
-                mRange.Value2 = measurementValues;
+                range = mMeasurementDataWorksheet.Range[cell, cell].Resize[Missing.Value, measurementValues.Length];
+                range.Value2 = measurementValues;
 
                 //Format row
                 cell = "A" + (mMeasurementDataWorksheet.UsedRange.Rows.Count);
-                mRange = mMeasurementDataWorksheet.Range[cell, cell].Resize[Missing.Value, measurementValues.Length + 1];
-                mRange.EntireColumn.AutoFit();
-                mRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
+                range = mMeasurementDataWorksheet.Range[cell, cell].Resize[Missing.Value, measurementValues.Length + 1];
+                range.EntireColumn.AutoFit();
+                range.Borders.Weight = Excel.XlBorderWeight.xlThin;
 
                 //Display and focus new row
                 mApplication.ScreenUpdating = true;
@@ -181,7 +196,7 @@ namespace LimsVisualizer
                 //Splitview handling?
                 mWorkbook.Windows.Item[1].Activate();
                 //mMeasurementDataWorksheet.Activate();
-                mRange.Activate();
+                range.Activate();
 
                 MainForm.LogWriter.WriteDebugMessage("Added Measuring Data successfully.");
             }
@@ -198,9 +213,6 @@ namespace LimsVisualizer
             try
             {
                 MainForm.LogWriter.WriteDebugMessage("Disposing Excel.");
-
-                if (mRange != null)
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(mRange);
 
                 if (mMeasurementDataWorksheet != null)
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(mMeasurementDataWorksheet);
