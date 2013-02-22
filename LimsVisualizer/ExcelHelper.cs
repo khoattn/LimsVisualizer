@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using LimsHelper;
@@ -176,8 +177,7 @@ namespace LimsVisualizer
                 mWorkbook.Windows.Item[1].Activate();
                 //mMeasurementDataWorksheet.Activate();
                 var range = mMeasurementDataWorksheet.Range[cell];
-                range.Value2 = document.MeasurementData.Timestamp.Local.ToShortDateString() + " " +
-                                document.MeasurementData.Timestamp.Local.ToLongTimeString() + "." + document.MeasurementData.Timestamp.Local.Millisecond;
+                range.Value2 = _GetFormatedTimeStamp(document.MeasurementData.Timestamp.Local);
 
                 //Add measuring values
                 cell = "B" + (mMeasurementDataWorksheet.UsedRange.Rows.Count);
@@ -196,7 +196,7 @@ namespace LimsVisualizer
                 //Splitview handling?
                 mWorkbook.Windows.Item[1].Activate();
                 //mMeasurementDataWorksheet.Activate();
-                range.Activate();
+                //range.Activate();
 
                 MainForm.LogWriter.WriteDebugMessage("Added Measuring Data successfully.");
             }
@@ -262,6 +262,80 @@ namespace LimsVisualizer
 
             MainForm.HeadersWritten = false;
             MainForm.LogWriter.WriteDebugMessage("Created new workbook.");
+        }
+
+        public void AddMiscellaneousValues(Document document)
+        {
+            try
+            {
+                MainForm.LogWriter.WriteDebugMessage(string.Format("Adding Miscellaneous Data. Device: '{0}' Line: '{1}' Product: '{2}'",
+                                                                        document.Summary.Device.Id,
+                                                                        document.Summary.Line.Name,
+                                                                        document.Summary.ActiveProduct.Product.Name));
+
+                mApplication.ScreenUpdating = false;
+                var values = new[]
+                {
+                    document.MeasurementData.SystemStatus.ToString(CultureInfo.InvariantCulture),
+                    document.MeasurementData.DeviceStatus.ToString(CultureInfo.InvariantCulture),
+                    document.MeasurementData.LineStatus.ToString(CultureInfo.InvariantCulture),
+                    _GetFormatedTimeStamp(document.MeasurementData.Timestamp.Local),
+                    document.Comments[0].Text,
+                    document.Calibrations[0].Username,
+                    document.Calibrations[0].Channels[0].Name,
+                    document.Calibrations[0].Channels[0].SavedValue.ToString(),
+                    document.Calibrations[0].Channels[0].Reference.ToString(),
+                    document.Calibrations[0].Channels[0].Deviation.ToString(),
+                    document.Adjustments[0].Username,
+                    document.Adjustments[0].Channels[0].Name,
+                    document.Adjustments[0].Channels[0].AverageDeviation.ToString(),
+                    document.Adjustments[0].Channels[0].OriginalGain.ToString(),
+                    document.Adjustments[0].Channels[0].AdjustedGain.ToString()
+                };
+                
+                //Add timestamp
+                var cell = "A" + (mMiscellaneousDataWorksheet.UsedRange.Rows.Count + 1);
+
+                //Splitview handling?
+                mWorkbook.Windows.Item[2].Activate();
+                //mMeasurementDataWorksheet.Activate();
+
+                var range = mMiscellaneousDataWorksheet.Range[cell];
+                //range.Value2 = document.MeasurementData.Timestamp.Local.ToShortDateString() + " " +
+                //                document.MeasurementData.Timestamp.Local.ToLongTimeString() + "." + document.MeasurementData.Timestamp.Local.Millisecond;
+
+                ////Add measuring values
+                //cell = "B" + (mMiscellaneousDataWorksheet.UsedRange.Rows.Count);
+                range = mMiscellaneousDataWorksheet.Range[cell, cell].Resize[Missing.Value, values.Length];
+                range.Value2 = values;
+
+                //Format row
+                cell = "A" + (mMiscellaneousDataWorksheet.UsedRange.Rows.Count);
+                range = mMiscellaneousDataWorksheet.Range[cell, cell].Resize[Missing.Value, values.Length];
+                range.EntireColumn.AutoFit();
+                range.Borders.Weight = Excel.XlBorderWeight.xlThin;
+
+                //Display and focus new row
+                mApplication.ScreenUpdating = true;
+
+                //Splitview handling?
+                mWorkbook.Windows.Item[2].Activate();
+                //mMeasurementDataWorksheet.Activate();
+                //range.Activate();
+
+                MainForm.LogWriter.WriteDebugMessage("Added Miscellaneous Data successfully.");
+            }
+            catch (Exception exception)
+            {
+                MainForm.LogWriter.WriteFailureMessage("Adding Measuring Data failed!");
+                MainForm.LogWriter.WriteException(exception);
+                MainForm.ShowErrorMessage(exception);
+            }
+        }
+
+        private static string _GetFormatedTimeStamp(DateTime dateTime)
+        {
+            return string.Format("{0} {1}.{2}", dateTime.ToShortDateString(), dateTime.ToLongTimeString(), dateTime.Millisecond);
         }
     }
 }

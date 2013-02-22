@@ -156,6 +156,7 @@ namespace LimsVisualizer
                 }
 
                 sExcelHelper.AddMeasurementValues(mDocument);
+                sExcelHelper.AddMiscellaneousValues(mDocument);
 
                 LogWriter.WriteDebugMessage(string.Format("Deleting file: '{0}'", file));
                 File.Delete(file);
