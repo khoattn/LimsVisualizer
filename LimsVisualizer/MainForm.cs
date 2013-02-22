@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using LimsHelper;
-using LimsVisualizer.Properties;
 using Threading = System.Threading;
 
 namespace LimsVisualizer
@@ -12,43 +11,51 @@ namespace LimsVisualizer
     public partial class MainForm : Form
     {
         public static Logger LogWriter = new Logger();
-        private readonly SettingsProvider mSettingsProvider = new SettingsProvider();
-        private readonly Parser mParser = new Parser();
-        private Document mDocument = new Document();
         public static bool HeadersWritten;
-        private static bool sIsHandlerDisposed;
+        private Document mDocument = new Document();
+        private readonly Parser mParser = new Parser();
+        private static bool sIsHandlerDisposed = true;
         private static ExcelHelper sExcelHelper;
         private static MainForm sInstance;
         private static Threading.Timer sTimer;
         private static ActiveProduct sActiveProduct = new ActiveProduct { Product = new Product { Id = Guid.NewGuid() } };
-
-        public static string FilePath { get; set; }
-        public static int DueTime { get; set; }
+        private static LimsVisualizerSettings sLimsVisualizerSettings;
+        private static readonly SettingsProvider sSettingsProvider = new SettingsProvider();
 
         public MainForm()
         {
             sInstance = this;
-            LogWriter.ApplicationName = "LimsVsiulizer";
-            LogWriter.LogFilePath = Path.Combine(Environment.GetEnvironmentVariable("TEMP"), "LimsVisualizer");
+            var application = System.Reflection.Assembly.GetExecutingAssembly().GetName();
+
+            LogWriter.ApplicationName = application.Name;
+            LogWriter.ApplicationVersion = application.Version.ToString();
+            LogWriter.LogFilePath = Path.Combine(Environment.GetEnvironmentVariable("TEMP"), application.Name);
             mParser.Logger = LogWriter;
+            sSettingsProvider.ApplicationName = application.Name;
+            sSettingsProvider.LogWriter = LogWriter;
             InitializeComponent();
         }
 
         public static void ShowErrorMessage(Exception exception)
         {
-            var errorMessage = new ErrorMessage { Type = Resources.Error };
-            _StopHandler();
-            sInstance._ChangeStateOfAllControls();
-            errorMessage.ShowErrorDialog(ActiveForm, exception.Message, exception.StackTrace);
+            var errorMessage = new PopupMessage { Type = PopupMessageType.Error };
+
+            if (!sIsHandlerDisposed)
+            {
+                _StopHandler();
+                sInstance._ChangeStateOfAllControls();
+            }
+
+            errorMessage.ShowDialog(ActiveForm, exception.Message, exception.StackTrace);
         }
 
         private void _ButtonBrowseClick(object sender, EventArgs e)
         {
-            folderBrowserDialog.SelectedPath = FilePath;
+            folderBrowserDialog.SelectedPath = sLimsVisualizerSettings.FilePath;
 
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                FilePath = textBoxPath.Text = folderBrowserDialog.SelectedPath;
+                sLimsVisualizerSettings.FilePath = textBoxPath.Text = folderBrowserDialog.SelectedPath;
             }
         }
 
@@ -56,10 +63,11 @@ namespace LimsVisualizer
         {
             _ChangeStateOfAllControls();
 
-            if (!Directory.Exists(FilePath))
+            if (!Directory.Exists(sLimsVisualizerSettings.FilePath))
             {
-                MessageBox.Show(string.Format("The provided path '{0}' does not exist!", FilePath), Resources.Info,
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var popupMessage = new PopupMessage { Type = PopupMessageType.Info };
+                popupMessage.ShowDialog(this,
+                    string.Format("The provided path '{0}' does not exist!", sLimsVisualizerSettings.FilePath));
                 _ChangeStateOfAllControls();
                 return;
             }
@@ -67,7 +75,9 @@ namespace LimsVisualizer
             sExcelHelper = new ExcelHelper();
             sTimer = new Threading.Timer(_TimerHandler);
 
-            LogWriter.WriteDebugMessage(string.Format("Starting Timer. FilePath: '{0}' Interval: '{1}'",FilePath,DueTime));
+            LogWriter.WriteDebugMessage(string.Format("Starting Timer. FilePath: '{0}' Interval: '{1}'",
+                sLimsVisualizerSettings.FilePath,
+                sLimsVisualizerSettings.DueTime));
             _StartHandler();
             LogWriter.WriteDebugMessage(string.Format("Started Timer successfully."));
         }
@@ -87,6 +97,7 @@ namespace LimsVisualizer
             {
                 _CheckForFile();
 
+                //Only start handler if it is not disposed
                 if (!sIsHandlerDisposed)
                     _StartHandler();
             }
@@ -110,19 +121,18 @@ namespace LimsVisualizer
         private void _StartHandler()
         {
             sIsHandlerDisposed = false;
-            sTimer.Change(DueTime, Timeout.Infinite);
+            sTimer.Change(sLimsVisualizerSettings.DueTime, Timeout.InfiniteTimeSpan);
         }
 
         private void _CheckForFile()
         {
-            var files = _SortFileListByExtension(Directory.GetFiles(FilePath));
+            var files = _SortFileListByExtension(Directory.GetFiles(sLimsVisualizerSettings.FilePath));
 
             foreach (var file in files)
             {
                 if (sIsHandlerDisposed)
                     return;
-
-
+                
                 try
                 {
                     mDocument = mParser.ParseFile(file);
@@ -173,30 +183,40 @@ namespace LimsVisualizer
         private void _TrackBarCheckFrequencyValueChanged(object sender, EventArgs e)
         {
             numericUpDownCheckFrequency.Value = trackBarCheckFrequency.Value;
-            DueTime = trackBarCheckFrequency.Value;
+            sLimsVisualizerSettings.DueTime = new TimeSpan(0, 0, 0, 0, trackBarCheckFrequency.Value);
         }
 
         private void _NumericUpDownCheckFrequencyValueChanged(object sender, EventArgs e)
         {
             trackBarCheckFrequency.Value = Convert.ToInt16(numericUpDownCheckFrequency.Value);
-            DueTime = Convert.ToInt16(numericUpDownCheckFrequency.Value);
+            sLimsVisualizerSettings.DueTime = new TimeSpan(0, 0, 0, 0, Convert.ToInt16(numericUpDownCheckFrequency.Value));
         }
 
         private void _FormMainLoad(object sender, EventArgs e)
         {
             LogWriter.Initialize();
-            mSettingsProvider.GetSettings();
-            textBoxPath.Text = folderBrowserDialog.SelectedPath = FilePath;
-            trackBarCheckFrequency.Value = DueTime;
-            numericUpDownCheckFrequency.Value = DueTime;
+            sSettingsProvider.GetSettings(out sLimsVisualizerSettings);
+            textBoxPath.Text = folderBrowserDialog.SelectedPath = sLimsVisualizerSettings.FilePath;
+            trackBarCheckFrequency.Value = (int)sLimsVisualizerSettings.DueTime.TotalMilliseconds;
+            numericUpDownCheckFrequency.Value = (decimal)sLimsVisualizerSettings.DueTime.TotalMilliseconds;
             buttonStop.Enabled = false;
-            textBoxPath.Text = FilePath;
+            textBoxPath.Text = sLimsVisualizerSettings.FilePath;
         }
 
-        private void _FormMainFormClosing(object sender, FormClosingEventArgs e)
+        private void _FormMainClosing(object sender, FormClosingEventArgs e)
         {
-            mSettingsProvider.WriteSettings();
-            LogWriter.Dispose();
+            try
+            {
+                sLimsVisualizerSettings.FilePath = textBoxPath.Text;
+                sLimsVisualizerSettings.DueTime = new TimeSpan(0, 0, 0, 0, (int)numericUpDownCheckFrequency.Value);
+
+                sSettingsProvider.WriteSettings(sLimsVisualizerSettings);
+                LogWriter.Dispose();
+            }
+            catch (Exception exception)
+            {
+                ShowErrorMessage(exception);
+            }
         }
 
         private IEnumerable<string> _SortFileListByExtension(string[] files)
@@ -247,7 +267,7 @@ namespace LimsVisualizer
 
         private void _TextBoxPathTextChanged(object sender, EventArgs e)
         {
-            FilePath = textBoxPath.Text;
+            sLimsVisualizerSettings.FilePath = textBoxPath.Text;
         }
     }
 }

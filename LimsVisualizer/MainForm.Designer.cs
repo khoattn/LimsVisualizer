@@ -160,7 +160,7 @@ namespace LimsVisualizer
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Lims Visualizer";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this._FormMainFormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this._FormMainClosing);
             this.Load += new System.EventHandler(this._FormMainLoad);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCheckFrequency)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCheckFrequency)).EndInit();
