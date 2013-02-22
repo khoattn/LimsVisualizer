@@ -10,9 +10,9 @@ namespace LimsVisualizer
     {
         private Excel.Application mApplication;
         private Excel._Workbook mWorkbook;
-        private Excel.Worksheet mMeasurementDataWorksheet;
+        private Excel._Worksheet mMeasurementDataWorksheet;
+        private Excel._Worksheet mMiscellaneousDataWorksheet;
         private Excel.Range mRange;
-        private Excel.Worksheet mMiscellaneousDataWorksheet;
 
         public void StartExcel()
         {
@@ -97,8 +97,10 @@ namespace LimsVisualizer
 
                 //Add timestamp
                 var cell = "A" + (mMeasurementDataWorksheet.UsedRange.Rows.Count + 1);
-                mWorkbook.Activate();
-                mMeasurementDataWorksheet.Activate();
+
+                //Splitview handling?
+                mWorkbook.Windows.Item[1].Activate();
+                //mMeasurementDataWorksheet.Activate();
                 mRange = mMeasurementDataWorksheet.Range[cell];
                 mRange.Value2 = document.MeasurementData.Timestamp.Local.ToShortDateString() + " " +
                                 document.MeasurementData.Timestamp.Local.ToLongTimeString() + "." + document.MeasurementData.Timestamp.Local.Millisecond;
@@ -116,8 +118,10 @@ namespace LimsVisualizer
 
                 //Display and focus new row
                 mApplication.ScreenUpdating = true;
-                mWorkbook.Activate();
-                mMeasurementDataWorksheet.Activate();
+
+                //Splitview handling?
+                mWorkbook.Windows.Item[1].Activate();
+                //mMeasurementDataWorksheet.Activate();
                 mRange.Activate();
 
                 MainForm.LogWriter.WriteDebugMessage("Added Measuring Data successfully.");
@@ -181,7 +185,10 @@ namespace LimsVisualizer
 
             //Set measurement data worksheet as active worksheet
             mMeasurementDataWorksheet.Activate();
-            
+
+            //Display windows in splitview
+            mWorkbook.Windows.Arrange(Excel.XlArrangeStyle.xlArrangeStyleHorizontal);
+
             MainForm.HeadersWritten = false;
             MainForm.LogWriter.WriteDebugMessage("Created new workbook.");
         }
