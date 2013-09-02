@@ -205,7 +205,7 @@ namespace LimsVisualizer
                 MainForm.LogWriter.WriteFailureMessage("Adding Measuring Data failed!");
                 MainForm.LogWriter.WriteException(exception);
                 MainForm.ShowErrorMessage(exception);
-            }
+            }   
         }
 
         public void Dispose()
@@ -274,24 +274,55 @@ namespace LimsVisualizer
                                                                         document.Summary.ActiveProduct.Product.Name));
 
                 mApplication.ScreenUpdating = false;
-                var values = new[]
+                var values = new string[15];
+
+                values[0] = document.MeasurementData.SystemStatus.ToString(CultureInfo.InvariantCulture);
+                values[1] = document.MeasurementData.DeviceStatus.ToString(CultureInfo.InvariantCulture);
+                values[2] = document.MeasurementData.LineStatus.ToString(CultureInfo.InvariantCulture);
+                values[3] = _GetFormatedTimeStamp(document.MeasurementData.Timestamp.Local);
+                
+                if (document.Comments.Count > 0)
                 {
-                    document.MeasurementData.SystemStatus.ToString(CultureInfo.InvariantCulture),
-                    document.MeasurementData.DeviceStatus.ToString(CultureInfo.InvariantCulture),
-                    document.MeasurementData.LineStatus.ToString(CultureInfo.InvariantCulture),
-                    _GetFormatedTimeStamp(document.MeasurementData.Timestamp.Local),
-                    document.Comments[0].Text,
-                    document.Calibrations[0].Username,
-                    document.Calibrations[0].Channels[0].Name,
-                    document.Calibrations[0].Channels[0].SavedValue.ToString(),
-                    document.Calibrations[0].Channels[0].Reference.ToString(),
-                    document.Calibrations[0].Channels[0].Deviation.ToString(),
-                    document.Adjustments[0].Username,
-                    document.Adjustments[0].Channels[0].Name,
-                    document.Adjustments[0].Channels[0].AverageDeviation.ToString(),
-                    document.Adjustments[0].Channels[0].OriginalGain.ToString(),
-                    document.Adjustments[0].Channels[0].AdjustedGain.ToString()
-                };
+                    values[4] = document.Comments[0].Text;
+                    values[5] = document.Calibrations[0].Username;
+                    values[6] = document.Calibrations[0].Channels[0].Name;
+                }
+                else
+                {
+                    values[4] = string.Empty;
+                    values[5] = string.Empty;
+                    values[6] = string.Empty;
+                }
+
+                if (document.Calibrations.Count > 0)
+                {
+                    values[7] = document.Calibrations[0].Channels[0].SavedValue.ToString();
+                    values[8] = document.Calibrations[0].Channels[0].Reference.ToString();
+                    values[9] = document.Calibrations[0].Channels[0].Deviation.ToString();
+                }
+                else
+                {
+                    values[7] = string.Empty;
+                    values[8] = string.Empty;
+                    values[9] = string.Empty;
+                }
+
+                if (document.Adjustments.Count > 0)
+                {
+                    values[10] = document.Adjustments[0].Username;
+                    values[11] = document.Adjustments[0].Channels[0].Name;
+                    values[12] = document.Adjustments[0].Channels[0].AverageDeviation.ToString();
+                    values[13] = document.Adjustments[0].Channels[0].OriginalGain.ToString();
+                    values[14] = document.Adjustments[0].Channels[0].AdjustedGain.ToString();
+                }
+                else
+                {
+                    values[10] = string.Empty;
+                    values[11] = string.Empty;
+                    values[12] = string.Empty;
+                    values[13] = string.Empty;
+                    values[14] = string.Empty;
+                }
                 
                 //Add timestamp
                 var cell = "A" + (mMiscellaneousDataWorksheet.UsedRange.Rows.Count + 1);
